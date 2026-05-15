@@ -1,0 +1,314 @@
+// Base backgrounds
+$color-black: #060504;
+$color-black-soft: #0d0b09;
+$color-graphite: #14110f;
+$color-brown-dark: #1c1510;
+$color-brown-deep: #2a1f18;
+
+// Warm luxury surfaces
+$color-surface: #12100e;
+$color-surface-soft: #1a1613;
+$color-surface-warm: #211912;
+$color-card: rgba(255, 248, 238, 0.045);
+$color-card-hover: rgba(255, 248, 238, 0.075);
+
+// Text
+$color-text: #f7efe5;
+$color-text-soft: #d8c7b5;
+$color-text-muted: #9b8a7a;
+$color-text-dark: #18120e;
+
+// Accents
+$color-cream: #f3e4d0;
+$color-champagne: #d8c3a5;
+$color-gold-soft: #c8a76b;
+$color-gold: #b8945a;
+$color-bronze: #8b6845;
+
+// Borders
+$color-border: rgba(243, 228, 208, 0.14);
+$color-border-strong: rgba(243, 228, 208, 0.28);
+$color-border-gold: rgba(200, 167, 107, 0.36);
+
+// Overlays
+$overlay-dark: rgba(6, 5, 4, 0.48);
+$overlay-heavy: rgba(6, 5, 4, 0.72);
+$overlay-warm: rgba(56, 35, 18, 0.38);
+
+// Gradients
+$gradient-hero:
+  linear-gradient(
+    180deg,
+    rgba(6, 5, 4, 0.28) 0%,
+    rgba(6, 5, 4, 0.42) 48%,
+    rgba(6, 5, 4, 0.86) 100%
+  );
+
+$gradient-side:
+  linear-gradient(
+    90deg,
+    rgba(6, 5, 4, 0.78) 0%,
+    rgba(6, 5, 4, 0.34) 44%,
+    rgba(6, 5, 4, 0.66) 100%
+  );
+
+$gradient-gold-glow:
+  radial-gradient(
+    circle at center,
+    rgba(200, 167, 107, 0.24) 0%,
+    rgba(200, 167, 107, 0.08) 38%,
+    rgba(200, 167, 107, 0) 70%
+  );
+
+$gradient-pearl:
+  linear-gradient(
+    135deg,
+    #fff6ea 0%,
+    #d8c3a5 38%,
+    #8b6845 100%
+  );
+
+
+// =========================
+// 2. TYPOGRAPHY
+// =========================
+
+// Подключишь потом через Google Fonts / локально.
+// Для vibe EVER лучше: Playfair Display / Cormorant Garamond / Libre Baskerville.
+// Для интерфейса: Inter / Manrope / Onest.
+
+$font-title: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+$font-text: 'Manrope', 'Inter', Arial, sans-serif;
+$font-ui: 'Inter', 'Manrope', Arial, sans-serif;
+
+// Font sizes
+$fs-hero: clamp(56px, 9vw, 148px);
+$fs-h1: clamp(44px, 7vw, 112px);
+$fs-h2: clamp(36px, 5vw, 76px);
+$fs-h3: clamp(26px, 3vw, 42px);
+$fs-h4: clamp(20px, 2vw, 28px);
+
+$fs-body-lg: clamp(18px, 1.35vw, 22px);
+$fs-body: 16px;
+$fs-body-sm: 14px;
+$fs-caption: 12px;
+$fs-micro: 10px;
+
+// Line heights
+$lh-tight: 0.92;
+$lh-title: 1.04;
+$lh-text: 1.65;
+$lh-ui: 1.2;
+
+// Letter spacing
+$ls-title: -0.035em;
+$ls-serif: -0.025em;
+$ls-ui: 0.08em;
+$ls-button: 0.12em;
+$ls-micro: 0.18em;
+
+
+// =========================
+// 3. LAYOUT
+// =========================
+
+$container: 1440px;
+$container-md: 1180px;
+$container-sm: 960px;
+
+$padding-page: clamp(20px, 4vw, 72px);
+$section-padding: clamp(88px, 12vw, 180px);
+$section-padding-sm: clamp(56px, 8vw, 112px);
+
+$header-height: 76px;
+$hero-min-height: 100svh;
+
+
+// =========================
+// 4. SPACING
+// =========================
+
+$space-2xs: 4px;
+$space-xs: 8px;
+$space-sm: 12px;
+$space-md: 20px;
+$space-lg: 32px;
+$space-xl: 48px;
+$space-2xl: 72px;
+$space-3xl: 112px;
+$space-4xl: 160px;
+
+
+// =========================
+// 5. RADIUS
+// =========================
+
+$radius-xs: 6px;
+$radius-sm: 10px;
+$radius-md: 16px;
+$radius-lg: 24px;
+$radius-xl: 36px;
+$radius-full: 999px;
+
+
+// =========================
+// 6. SHADOWS / GLOW
+// =========================
+
+$shadow-soft: 0 24px 80px rgba(0, 0, 0, 0.28);
+$shadow-card: 0 20px 70px rgba(0, 0, 0, 0.42);
+$shadow-gold: 0 0 80px rgba(200, 167, 107, 0.16);
+$shadow-pearl: 0 0 90px rgba(243, 228, 208, 0.14);
+
+
+// =========================
+// 7. TRANSITIONS
+// =========================
+
+$ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+$ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+$ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+
+$transition-fast: 0.25s $ease-premium;
+$transition-base: 0.45s $ease-premium;
+$transition-slow: 0.9s $ease-smooth;
+
+
+// =========================
+// 8. Z-INDEX
+// =========================
+
+$z-bg: -1;
+$z-base: 1;
+$z-content: 2;
+$z-header: 50;
+$z-menu: 80;
+$z-modal: 100;
+
+
+// =========================
+// 9. BREAKPOINTS
+// =========================
+
+$bp-xs: 375px;
+$bp-sm: 576px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1280px;
+$bp-2xl: 1440px;
+
+html {
+  scroll-behavior: initial;
+}
+
+body {
+  margin: 0;
+  font-family: $font-text;
+  font-size: $fs-body;
+  line-height: $lh-text;
+  color: $color-text;
+  background: $color-black;
+  overflow-x: hidden;
+}
+
+body::selection {
+  color: $color-text-dark;
+  background: $color-cream;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+.page {
+  position: relative;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 70% 0%, rgba(139, 104, 69, 0.22), transparent 36%),
+    $color-black;
+}
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(8, 6, 4, 0.34) 0%,
+      rgba(8, 6, 4, 0.48) 55%,
+      rgba(8, 6, 4, 0.72) 100%
+    ),
+    url('../img/photo_2026-05-11_08-58-23.jpg') center / cover no-repeat;
+
+  span,
+  h1 {
+    position: absolute;
+    left: 50%;
+    z-index: 2;
+
+    margin: 0;
+    width: min(92vw, 1320px);
+
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 600;
+    color: #fff7ee;
+    text-align: center;
+
+    pointer-events: none;
+    will-change: transform, opacity, filter;
+  }
+
+  span {
+    top: 45%;
+    transform: translate(-50%, -50%);
+
+    font-size: 90px;
+    // font-size: clamp(58px, 9vw, 88px);
+    line-height: 0.9;
+    letter-spacing: 1px;
+    text-transform: lowercase;
+  }
+
+  h1 {
+    top: 84%;
+    bottom: auto;
+    transform: translateX(-50%) translateY(60px);
+
+    max-width: 900px;
+    width: min(88vw, 900px);
+
+    font-size: 48px;
+    // font-size: clamp(26px, 3.4vw, 54px);
+    line-height: 1.05;
+    letter-spacing: .03em;
+
+    opacity: 0;
+    filter: blur(14px);
+  }
+
+}
+
+@media (max-width: 768px) {
+  .hero {
+    background-position: center;
+
+    span {
+      width: 94vw;
+      font-size: clamp(54px, 16vw, 92px);
+    }
+
+    h1 {
+      bottom: 56px;
+      width: 88vw;
+      font-size: clamp(28px, 8vw, 44px);
+    }
+  }
+}
