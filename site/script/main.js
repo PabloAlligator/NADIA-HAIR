@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSectionTwoMarquee();
   initBeautyFlowBackground();
   initSectionThreeDecorReveal();
+  initCompareSliders();
 });
 
 // ======================================================
@@ -407,4 +408,140 @@ function initSectionThreeDecorReveal() {
   }
 
   updateDecorReveal();
+}
+
+function initCompareSliders() {
+  const compares = document.querySelectorAll('.js-compare');
+
+  if (!compares.length) return;
+
+  compares.forEach((compare) => {
+    const min = 2;
+    const max = 98;
+    const start = Number(compare.dataset.start || 50);
+
+    let isDragging = false;
+    let targetPosition = clampCompare(start, min, max);
+    let currentPosition = targetPosition;
+    let animationFrame = null;
+
+    const setComparePosition = (value) => {
+      const position = clampCompare(value, min, max);
+
+      compare.style.setProperty('--compare-position', `${position.toFixed(2)}%`);
+      compare.setAttribute('aria-valuenow', String(Math.round(position)));
+    };
+
+    const getPositionFromClientX = (clientX) => {
+      const rect = compare.getBoundingClientRect();
+      const x = clientX - rect.left;
+
+      return (x / rect.width) * 100;
+    };
+
+    const requestAnimation = () => {
+      if (animationFrame) return;
+
+      animationFrame = requestAnimationFrame(animate);
+    };
+
+    const animate = () => {
+      const diff = targetPosition - currentPosition;
+
+      if (Math.abs(diff) < 0.08) {
+        currentPosition = targetPosition;
+      } else {
+        currentPosition += diff * 0.22;
+      }
+
+      setComparePosition(currentPosition);
+
+      if (currentPosition !== targetPosition || isDragging) {
+        animationFrame = requestAnimationFrame(animate);
+        return;
+      }
+
+      animationFrame = null;
+    };
+
+    const updateTarget = (clientX) => {
+      targetPosition = clampCompare(getPositionFromClientX(clientX), min, max);
+      requestAnimation();
+    };
+
+    const startDrag = (event) => {
+      if (event.pointerType === 'mouse' && event.button !== 0) return;
+
+      isDragging = true;
+      compare.classList.add('is-dragging');
+
+      compare.setPointerCapture?.(event.pointerId);
+
+      updateTarget(event.clientX);
+      event.preventDefault();
+    };
+
+    const moveDrag = (event) => {
+      if (!isDragging) return;
+
+      updateTarget(event.clientX);
+      event.preventDefault();
+    };
+
+    const endDrag = (event) => {
+      if (!isDragging) return;
+
+      isDragging = false;
+      compare.classList.remove('is-dragging');
+
+      compare.releasePointerCapture?.(event.pointerId);
+
+      requestAnimation();
+    };
+
+    const moveByKeyboard = (event) => {
+      const step = event.shiftKey ? 10 : 4;
+
+      if (event.key === 'ArrowLeft') {
+        targetPosition = clampCompare(targetPosition - step, min, max);
+        requestAnimation();
+        event.preventDefault();
+      }
+
+      if (event.key === 'ArrowRight') {
+        targetPosition = clampCompare(targetPosition + step, min, max);
+        requestAnimation();
+        event.preventDefault();
+      }
+
+      if (event.key === 'Home') {
+        targetPosition = min;
+        requestAnimation();
+        event.preventDefault();
+      }
+
+      if (event.key === 'End') {
+        targetPosition = max;
+        requestAnimation();
+        event.preventDefault();
+      }
+    };
+
+    compare.addEventListener('pointerdown', startDrag);
+    compare.addEventListener('pointermove', moveDrag);
+    compare.addEventListener('pointerup', endDrag);
+    compare.addEventListener('pointercancel', endDrag);
+    compare.addEventListener('lostpointercapture', endDrag);
+    compare.addEventListener('keydown', moveByKeyboard);
+
+    compare.addEventListener('dragstart', (event) => {
+      event.preventDefault();
+    });
+
+    setComparePosition(currentPosition);
+  });
+}
+
+function clampCompare(value, min, max) {
+  return Math.min(Math.max(value, min), max);
 }
