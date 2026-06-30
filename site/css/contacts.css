@@ -956,7 +956,7 @@ body.is-lock {
 .contact-hero__quote p {
   margin: 0;
   color: #fff7ef;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   font-size: clamp(30px, 3.4vw, 64px);
   font-weight: 400;
   line-height: 1.04;
@@ -967,44 +967,85 @@ body.is-lock {
 @media (max-width: 768px) {
   .contact-hero {
     min-height: auto;
+    overflow: visible;
   }
   .contact-hero__stage {
     height: auto;
-    min-height: auto;
+    min-height: 100svh;
     display: flex;
     flex-direction: column;
-  }
-  .contact-hero__visual, .contact-hero__content {
-    position: relative;
-    width: 100%;
-    height: auto;
-  }
-  .contact-hero__visual {
-    order: 1;
-    height: 68svh;
-    min-height: 480px;
+    background: #796046;
+    overflow: hidden;
   }
   .contact-hero__content {
-    order: 2;
-    padding: 52px 18px 60px;
+    position: relative;
+    order: 1;
+    z-index: 2;
+    width: 100%;
+    min-height: 48svh;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 92px 20px 34px;
     border-right: none;
+    background: radial-gradient(circle at 18% 12%, rgba(255, 247, 239, 0.1), transparent 34%), linear-gradient(135deg, #796046 0%, #6f573f 62%, #5a4432 100%);
+  }
+  .contact-hero__visual {
+    position: relative;
+    order: 2;
+    z-index: 1;
+    width: 100%;
+    height: 56svh;
+    min-height: 440px;
+    overflow: hidden;
+  }
+  .contact-hero__visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 62% 18%;
+    transform: none;
+    filter: saturate(0.92) contrast(1.02) brightness(0.9);
+  }
+  .contact-hero__eyebrow {
+    margin-bottom: 18px;
+    font-size: 12px;
+    letter-spacing: 0.22em;
   }
   .contact-hero__title {
-    font-size: clamp(46px, 13vw, 72px);
+    max-width: 100%;
+    font-size: clamp(42px, 13vw, 68px);
+    line-height: 0.9;
+    letter-spacing: 0.5px;
   }
   .contact-hero__text {
-    margin-top: 26px;
+    max-width: 100%;
+    margin-top: 24px;
+    font-size: 15px;
+    line-height: 1.5;
   }
   .contact-hero__actions {
-    margin-top: 32px;
+    margin-top: 28px;
+    gap: 10px;
   }
   .contact-hero__button, .contact-hero__link {
     width: 100%;
+    min-height: 50px;
+    padding: 0 18px;
+    font-size: 12px;
   }
   .contact-hero__info {
-    grid-template-columns: 1fr;
-    margin-top: 44px;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 34px;
     padding-top: 0;
+  }
+  .contact-hero__info div {
+    padding-top: 14px;
+  }
+  .contact-hero__info a, .contact-hero__info p {
+    font-size: 13px;
   }
   .contact-hero__quote {
     display: none;

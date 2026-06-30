@@ -1,17 +1,13 @@
 'use strict';
 
-// ======================================================
 // CONTACTS PAGE INIT
-// ======================================================
 
 document.addEventListener('DOMContentLoaded', () => {
   initHeader();
   initContactHero();
 });
 
-// ======================================================
 // HEADER + BURGER
-// ======================================================
 
 function initHeader() {
   const header = document.querySelector('[data-header]');
@@ -141,10 +137,7 @@ function initHeader() {
   updateHeader();
 }
 
-// ======================================================
 // CONTACT HERO SCROLL ANIMATION
-// ======================================================
-
 function initContactHero() {
   const section = document.querySelector('.js-contact-hero');
 
@@ -162,26 +155,32 @@ function initContactHero() {
 
   const mm = gsap.matchMedia();
 
-  mm.add('(min-width: 901px)', () => {
+  mm.add('(min-width: 769px)', () => {
     gsap.set(content, {
       autoAlpha: 1,
       xPercent: 0,
       filter: 'blur(0px)',
+      zIndex: 5,
     });
 
     gsap.set(visual, {
       width: '50%',
       xPercent: 0,
+      zIndex: 2,
     });
 
     gsap.set(image, {
       scale: 1,
       xPercent: 0,
+      yPercent: 0,
+      objectPosition: '62% 22%',
+      transformOrigin: '62% 28%',
     });
 
     gsap.set(quote, {
       autoAlpha: 0,
       y: 28,
+      zIndex: 6,
     });
 
     const timeline = gsap.timeline({
@@ -220,7 +219,9 @@ function initContactHero() {
       .to(
         image,
         {
-          scale: 1.14,
+          scale: 1.16,
+          yPercent: -4,
+          objectPosition: '62% 14%',
           duration: 0.82,
           ease: 'none',
         },
@@ -266,7 +267,7 @@ function initContactHero() {
     };
   });
 
-  mm.add('(max-width: 900px)', () => {
+  mm.add('(max-width: 768px)', () => {
     gsap.set([content, visual, image, quote], {
       clearProps: 'all',
     });
