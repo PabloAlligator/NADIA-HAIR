@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/site/css/contacts.min.css" />
+    <!-- <link rel="stylesheet" href="/site/css/footer.css" /> -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <header class="header" data-header>
+      <div class="header__inner glass">
+        <nav class="header__nav header__nav--left" aria-label="Левая навигация">
+          <a href="#home">Главная</a>
+          <a href="#services">Услуги</a>
+        </nav>
+
+        <a href="#home" class="header__logo" aria-label="На главную">
+          <img src="site/img/logo.png" alt="Nadia Hair Studio" />
+        </a>
+
+        <nav
+          class="header__nav header__nav--right"
+          aria-label="Правая навигация"
+        >
+          <a href="#works">Работы</a>
+          <a href="#contact">Контакты</a>
+        </nav>
+
+        <button
+          class="header__burger"
+          type="button"
+          aria-label="Открыть меню"
+          aria-expanded="false"
+          data-burger
+        >
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+      <nav
+        class="header__mobile"
+        aria-label="Мобильная навигация"
+        data-mobile-menu
+      >
+        <div class="header__mobile-nav">
+          <a href="#home">Главная</a>
+          <a href="#services">Услуги</a>
+          <a href="#works">Работы</a>
+          <a href="#about">О салоне</a>
+          <a href="#contact">Контакты</a>
+        </div>
+
+        <div class="header__mobile-contact">
+          <span>Записаться в салон</span>
+          <a href="tel:89235853333">8 923 585-33-33</a>
+        </div>
+      </nav>
+    </header>
+
+      <main class="contacts-page">
+        <section class="contact-hero js-contact-hero">
+          <div class="contact-hero__stage">
+            <div class="contact-hero__content">
+              <p class="contact-hero__eyebrow">Контакты</p>
+
+              <h1 class="contact-hero__title">
+                <!-- НАДЕЖДА ШУМИЛОВА -->
+                НАДЬКА БУТЕРБРОЖКА
+              </h1>
+
+              <p class="contact-hero__text">
+                Подберём услугу, обсудим состояние волос и найдём образ, в
+                котором вы будете чувствовать себя уверенно.
+              </p>
+
+              <!-- <div class="contact-hero__actions">
+                <a class="contact-hero__button" href="tel:+79233906649">
+                  Позвонить
+                </a>
+
+                <a class="contact-hero__link" href="#contact-form">
+                  Оставить заявку
+                </a>
+              </div> -->
+
+              <div class="contact-hero__info">
+                <div>
+                  <span>Телефон</span>
+                  <a href="tel:+79235853333">+7 (923) 585-33-33</a>
+                </div>
+
+                <div>
+                  <span>Город</span>
+                  <address>Абакан</address>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-hero__visual">
+              <img
+                src="/site/img/contacts/contact-hero.png"
+                alt="NADIA HAIR — образ для страницы контактов"
+                draggable="false"
+              />
+
+              <div class="contact-hero__quote">
+                <p>Красота начинается с бережного подхода.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+    </main>
+
+    <footer class="footer glass">
+      <div class="footer__glass">
+        <div class="footer__top">
+          <div class="footer__brand">
+            <a class="footer__logo" href="/" aria-label="NADIA HAIR">
+              NADIA HAIR
+            </a>
+
+            <p class="footer__text">
+              Премиальный уход за волосами и безупречный результат.
+              Индивидуальный подход к каждой клиентке.
+            </p>
+
+            <a class="footer__button" href="tel:+79233906649">
+              <!-- <span class="footer__button-icon">▣</span> -->
+              Записаться онлайн
+            </a>
+          </div>
+
+          <nav class="footer__nav" aria-label="Меню сайта">
+            <span class="footer__title">Меню</span>
+
+            <a href="/">Главная</a>
+            <a href="/services">Услуги</a>
+            <a href="/works">Работы</a>
+            <a href="/blog">Влог</a>
+            <a href="/contacts">Контакты</a>
+          </nav>
+
+          <nav class="footer__nav" aria-label="Услуги салона">
+            <span class="footer__title">Услуги</span>
+
+            <a href="/services">Окрашивание</a>
+            <a href="/services">AirTouch</a>
+            <a href="/services">Уход за волосами</a>
+            <a href="/services">Стрижки</a>
+            <a href="/services">Укладки</a>
+          </nav>
+
+          <div class="footer__contacts">
+            <span class="footer__title">Контакты</span>
+
+            <a class="footer__contact" href="tel:+79233906649">
+              <!-- <span>☎</span> -->
+              +7 (923) 390-66-49
+            </a>
+
+            <div class="footer__contact">
+              <!-- <span>⌖</span> -->
+              Абакан
+            </div>
+
+            <div class="footer__socials">
+              <a href="#" aria-label="Instagram">IG</a>
+              <a href="#" aria-label="VK">VK</a>
+              <a href="#" aria-label="Telegram">TG</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer__bottom">
+          <p>© NADIA HAIR, 2026</p>
+
+          <a href="/privacy-policy">Политика конфиденциальности</a>
+
+          <a href="https://shumdev.ru" target="_blank" rel="noopener">
+            Разработка ShumDev
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="/site/script/contacts.js"></script>
+  </body>
+</html>

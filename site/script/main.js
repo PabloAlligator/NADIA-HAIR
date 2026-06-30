@@ -213,101 +213,201 @@ function initSectionTwoMarquee() {
 
   if (!originalCards.length) return;
 
-  originalCards.forEach((card) => {
-    const clone = card.cloneNode(true);
-    clone.setAttribute('aria-hidden', 'true');
-    track.appendChild(clone);
+  originalCards.forEach((card, index) => {
+    card.dataset.marqueeCard = String((index % originalCards.length) + 1);
   });
 
-  let position = 0;
+  let setWidth = 0;
+  let rawPosition = 0;
   let targetPosition = 0;
-  let singleSetWidth = 0;
 
-  let isDragging = false;
+  let isPointerDown = false;
   let startX = 0;
   let startTargetPosition = 0;
+  let hasMoved = false;
+  let rafId = null;
 
-  const speed = 0.45;
-  const ease = 0.075;
+  const speed = 0.36;
+  const dragPower = 1.06;
+  const smooth = 0.105;
+  const dragThreshold = 6;
 
-  function calculateWidth() {
+  function getGap() {
     const styles = window.getComputedStyle(track);
-    const gap = parseFloat(styles.columnGap || styles.gap || 0);
 
-    singleSetWidth = originalCards.reduce((width, card) => {
-      return width + card.offsetWidth + gap;
+    return parseFloat(styles.columnGap || styles.gap || 0) || 0;
+  }
+
+  function getSetWidth(cards) {
+    const gap = getGap();
+
+    return cards.reduce((width, card) => {
+      const cardWidth = card.getBoundingClientRect().width;
+
+      /*
+        ВАЖНО:
+        gap считаем после каждой карточки, включая последнюю.
+        Между последней оригинальной и первой клонированной карточкой
+        flex тоже ставит gap. Без этого будет рывок на стыке.
+      */
+
+      return width + cardWidth + gap;
     }, 0);
   }
 
-  function normalizePosition() {
-    if (!singleSetWidth) return;
+  function clearClones() {
+    track.querySelectorAll('[data-clone="true"]').forEach((clone) => {
+      clone.remove();
+    });
+  }
 
-    if (targetPosition <= -singleSetWidth) {
-      targetPosition += singleSetWidth;
-      position += singleSetWidth;
-    }
+  function buildClones() {
+    clearClones();
 
-    if (targetPosition >= 0) {
-      targetPosition -= singleSetWidth;
-      position -= singleSetWidth;
+    setWidth = getSetWidth(originalCards);
+
+    if (!setWidth) return;
+
+    const marqueeWidth = marquee.getBoundingClientRect().width;
+    const minWidth = marqueeWidth + setWidth * 4;
+
+    while (track.scrollWidth < minWidth) {
+      originalCards.forEach((card, index) => {
+        const clone = card.cloneNode(true);
+
+        clone.setAttribute('aria-hidden', 'true');
+        clone.setAttribute('tabindex', '-1');
+        clone.dataset.clone = 'true';
+        clone.dataset.marqueeCard = String((index % originalCards.length) + 1);
+
+        track.appendChild(clone);
+      });
     }
+  }
+
+  function normalizeForRender(value) {
+    if (!setWidth) return 0;
+
+    return ((value % setWidth) + setWidth) % setWidth;
+  }
+
+  function setTrackPosition(value) {
+    const normalized = normalizeForRender(value);
+    const renderX = -normalized;
+
+    track.style.setProperty('--marquee-x', `${renderX}px`);
   }
 
   function animate() {
-    if (!isDragging) {
-      targetPosition -= speed;
+    if (!isPointerDown) {
+      targetPosition += speed;
     }
 
-    normalizePosition();
+    rawPosition += (targetPosition - rawPosition) * smooth;
 
-    position += (targetPosition - position) * ease;
+    setTrackPosition(rawPosition);
 
-    track.style.translate = `${position}px 0`;
-
-    requestAnimationFrame(animate);
+    rafId = requestAnimationFrame(animate);
   }
 
   function startDrag(event) {
-    isDragging = true;
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+
+    isPointerDown = true;
+    hasMoved = false;
+
     marquee.classList.add('is-dragging');
 
-    startX = getClientX(event);
+    startX = event.clientX;
     startTargetPosition = targetPosition;
+
+    marquee.setPointerCapture?.(event.pointerId);
   }
 
   function moveDrag(event) {
-    if (!isDragging) return;
+    if (!isPointerDown) return;
 
-    const currentX = getClientX(event);
-    const delta = currentX - startX;
+    const delta = event.clientX - startX;
 
-    targetPosition = startTargetPosition + delta * 1.2;
+    if (Math.abs(delta) > dragThreshold) {
+      hasMoved = true;
+    }
+
+    targetPosition = startTargetPosition - delta * dragPower;
+
+    event.preventDefault();
   }
 
-  function endDrag() {
-    isDragging = false;
+  function endDrag(event) {
+    if (!isPointerDown) return;
+
+    isPointerDown = false;
     marquee.classList.remove('is-dragging');
+
+    marquee.releasePointerCapture?.(event.pointerId);
+
+    window.setTimeout(() => {
+      hasMoved = false;
+    }, 0);
   }
 
-  calculateWidth();
+  function preventClickAfterDrag(event) {
+    if (!hasMoved) return;
 
-  window.addEventListener('resize', calculateWidth);
+    event.preventDefault();
+    event.stopPropagation();
+  }
 
-  marquee.addEventListener('mousedown', startDrag);
-  window.addEventListener('mousemove', moveDrag);
-  window.addEventListener('mouseup', endDrag);
+  function refresh() {
+    const progress = setWidth ? normalizeForRender(rawPosition) / setWidth : 0;
 
-  marquee.addEventListener('touchstart', startDrag, {
-    passive: true,
+    buildClones();
+
+    rawPosition = progress * setWidth;
+    targetPosition = rawPosition;
+
+    setTrackPosition(rawPosition);
+  }
+
+  function start() {
+    buildClones();
+    setTrackPosition(rawPosition);
+
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+    }
+
+    animate();
+  }
+
+  marquee.addEventListener('pointerdown', startDrag);
+  marquee.addEventListener('pointermove', moveDrag);
+  marquee.addEventListener('pointerup', endDrag);
+  marquee.addEventListener('pointercancel', endDrag);
+  marquee.addEventListener('lostpointercapture', endDrag);
+  marquee.addEventListener('click', preventClickAfterDrag, true);
+
+  window.addEventListener('resize', () => {
+    window.requestAnimationFrame(refresh);
   });
 
-  window.addEventListener('touchmove', moveDrag, {
-    passive: true,
+  originalCards.forEach((card) => {
+    const image = card.querySelector('img');
+
+    if (!image || image.complete) return;
+
+    image.addEventListener(
+      'load',
+      () => {
+        window.requestAnimationFrame(refresh);
+      },
+      {
+        once: true,
+      }
+    );
   });
 
-  window.addEventListener('touchend', endDrag);
-
-  animate();
+  start();
 }
 
 // анимация перехода цвета
