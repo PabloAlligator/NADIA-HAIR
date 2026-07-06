@@ -1,24 +1,15 @@
+$color-beige: #e8d7c3;
 
 .footer {
   position: relative;
   overflow: hidden;
-  padding: 96px 24px 36px;
-  color: #4d3a2b;
 
-  background:
-    radial-gradient(circle at 12% 12%, rgba(255, 247, 239, 0.12), transparent 26%),
-    // radial-gradient(circle at 88% 18%, rgba(255, 247, 239, 0.1), transparent 24%),
-    linear-gradient(
-      180deg,
-      #796046 0%,
-      #80664b 8%,
-      #8f7357 18%,
-      #a98a6d 32%,
-      #c5aa8e 48%,
-      #dbc8b3 66%,
-      #eadcca 84%,
-      #f1e4d4 100%
-    );
+  padding: 72px 24px 28px;
+
+  color: #2f231a;
+  // background: #e8d7c3;
+
+  border-top: 1px solid rgba(79, 59, 43, 0.1);
 
   &::before {
     content: '';
@@ -26,18 +17,18 @@
     inset: 0;
     pointer-events: none;
 
-    background:
-      linear-gradient(
-        180deg,
-        rgba(47, 35, 26, 0.25) 0%,
-        rgba(121, 96, 70, 0.78) 22%,
-        rgba(255, 247, 239, 0.09) 58%,
-        rgba(255, 247, 239, 0.16) 100%
-      ),
-      radial-gradient(circle at 18% 70%, rgba(255, 247, 239, 0.14), transparent 28%),
-      radial-gradient(circle at 76% 72%, rgba(255, 247, 239, 0.1), transparent 24%);
+    background: $color-beige;
+    // background:
+    //   linear-gradient(
+    //     180deg,
+    //     rgba(255, 255, 255, 0.72) 0%,
+    //     rgba(255, 255, 255, 0.18) 44%,
+    //     rgba(241, 228, 212, 0.34) 100%
+    //   ),
+    //   radial-gradient(circle at 18% 80%, rgba(121, 96, 70, 0.06), transparent 30%),
+    //   radial-gradient(circle at 78% 76%, rgba(121, 96, 70, 0.05), transparent 28%);
 
-    opacity: 0.9;
+    opacity: 0.95;
   }
 
   &__glass {
@@ -45,28 +36,23 @@
     z-index: 1;
     overflow: hidden;
 
-    // max-width: 1720px;
     margin: 0 auto;
-
-    border: 1px solid rgba(173, 132, 87, 0.36);
-    border-radius: 28px;
 
     background:
       linear-gradient(
         135deg,
-        rgba(255, 248, 239, 0.36) 0%,
-        rgba(255, 245, 234, 0.26) 38%,
-        rgba(232, 215, 195, 0.18) 100%
-      ),
-      rgba(255, 247, 239, 0.12);
+        rgba(255, 255, 255, 0.92) 0%,
+        rgba(255, 250, 244, 0.88) 48%,
+        rgba(247, 239, 230, 0.82) 100%
+      );
 
-    backdrop-filter: blur(24px) saturate(1.18);
-    -webkit-backdrop-filter: blur(24px) saturate(1.18);
+    border: 1px solid rgba(79, 59, 43, 0.11);
+    border-radius: 28px;
 
     box-shadow:
-      0 24px 70px rgba(47, 35, 26, 0.18),
-      inset 0 1px 0 rgba(255, 255, 255, 0.42),
-      inset 0 -1px 0 rgba(121, 96, 70, 0.1);
+      0 28px 90px rgba(47, 35, 26, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      inset 0 -1px 0 rgba(79, 59, 43, 0.04);
   }
 
   &__glass::before {
@@ -77,18 +63,17 @@
     pointer-events: none;
 
     background:
-      radial-gradient(circle at 8% 18%, rgba(255, 255, 255, 0.28), transparent 23%),
-      radial-gradient(circle at 74% 14%, rgba(255, 255, 255, 0.18), transparent 20%),
-      radial-gradient(circle at 92% 68%, rgba(199, 169, 120, 0.18), transparent 26%),
+      radial-gradient(circle at 8% 18%, rgba(255, 255, 255, 0.88), transparent 22%),
+      radial-gradient(circle at 74% 14%, rgba(255, 255, 255, 0.58), transparent 20%),
+      radial-gradient(circle at 92% 70%, rgba(121, 96, 70, 0.06), transparent 26%),
       linear-gradient(
         90deg,
-        rgba(255, 255, 255, 0.12) 0%,
+        rgba(255, 255, 255, 0.44) 0%,
         transparent 42%,
-        rgba(255, 255, 255, 0.08) 100%
+        rgba(255, 255, 255, 0.28) 100%
       );
 
-    filter: blur(8px);
-    opacity: 0.95;
+    opacity: 0.9;
   }
 
   &__glass::after {
@@ -98,7 +83,7 @@
     z-index: 0;
     pointer-events: none;
 
-    border: 1px solid rgba(255, 255, 255, 0.24);
+    border: 1px solid rgba(255, 255, 255, 0.82);
     border-radius: 27px;
   }
 
@@ -110,38 +95,38 @@
 
   &__top {
     display: grid;
-    grid-template-columns: 1.25fr 0.75fr 0.85fr 1fr;
-    gap: 64px;
+    grid-template-columns: 1.28fr 0.72fr 0.86fr 1fr;
+    gap: clamp(42px, 4vw, 72px);
 
-    padding: 64px 110px 54px;
+    padding: clamp(52px, 5vw, 72px) clamp(54px, 7vw, 112px) clamp(44px, 4vw, 58px);
   }
 
   &__brand {
-    max-width: 390px;
+    max-width: 420px;
   }
 
   &__logo {
     display: inline-flex;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
 
-    color: #5a4230;
+    color: #2f231a;
 
     font-family: Georgia, 'Times New Roman', serif;
-    font-size: clamp(36px, 3vw, 58px);
+    font-size: clamp(38px, 3.2vw, 62px);
     font-weight: 400;
-    line-height: 0.95;
-    letter-spacing: -0.055em;
+    line-height: 0.92;
+    letter-spacing: -0.06em;
     text-decoration: none;
     text-transform: uppercase;
   }
 
   &__text {
-    max-width: 320px;
+    max-width: 340px;
     margin: 0 0 28px;
 
-    color: rgba(77, 58, 43, 0.84);
+    color: rgba(47, 35, 26, 0.64);
 
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 400;
     line-height: 1.58;
   }
@@ -152,27 +137,28 @@
     justify-content: center;
     gap: 12px;
 
-    min-height: 48px;
-    padding: 0 24px;
+    min-height: 46px;
+    padding: 0 22px;
 
-    color: #6a4d33;
-    background: rgba(255, 248, 237, 0.28);
-    border: 1px solid rgba(176, 130, 75, 0.46);
+    color: #2f231a;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(79, 59, 43, 0.16);
     border-radius: 8px;
 
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.42),
-      0 10px 28px rgba(79, 59, 43, 0.08);
+      0 12px 34px rgba(47, 35, 26, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
 
-    font-size: 13px;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 600;
     line-height: 1;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
     text-decoration: none;
     text-transform: uppercase;
 
     transition:
       transform 0.28s ease,
+      color 0.28s ease,
       background 0.28s ease,
       border-color 0.28s ease,
       box-shadow 0.28s ease;
@@ -180,11 +166,13 @@
 
   &__button:hover {
     transform: translateY(-2px);
-    background: rgba(255, 248, 237, 0.46);
-    border-color: rgba(176, 130, 75, 0.72);
+    color: #fffaf4;
+    background: #796046;
+    border-color: rgba(121, 96, 70, 0.44);
+
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.5),
-      0 14px 34px rgba(79, 59, 43, 0.12);
+      0 16px 38px rgba(47, 35, 26, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.16);
   }
 
   &__button-icon {
@@ -202,14 +190,14 @@
   &__title {
     position: relative;
 
-    margin-bottom: 28px;
+    margin: 0 0 28px;
 
-    color: #3e2e22;
+    color: rgba(47, 35, 26, 0.86);
 
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 700;
     line-height: 1.2;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
   }
 
@@ -219,20 +207,20 @@
     left: 0;
     bottom: -12px;
 
-    width: 56px;
+    width: 54px;
     height: 1px;
 
     background: linear-gradient(
       90deg,
-      rgba(176, 130, 75, 0.78),
-      rgba(176, 130, 75, 0)
+      rgba(121, 96, 70, 0.42),
+      rgba(121, 96, 70, 0)
     );
   }
 
   &__nav a {
-    color: rgba(62, 46, 34, 0.82);
+    color: rgba(47, 35, 26, 0.62);
 
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 400;
     line-height: 1.35;
     text-decoration: none;
@@ -243,11 +231,11 @@
   }
 
   &__nav a + a {
-    margin-top: 16px;
+    margin-top: 14px;
   }
 
   &__nav a:hover {
-    color: #2b2119;
+    color: #2f231a;
     transform: translateX(4px);
   }
 
@@ -256,16 +244,22 @@
     align-items: center;
     gap: 14px;
 
-    color: rgba(62, 46, 34, 0.86);
+    color: rgba(47, 35, 26, 0.66);
 
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 400;
     line-height: 1.4;
     text-decoration: none;
+
+    transition: color 0.25s ease;
   }
 
   &__contact + &__contact {
-    margin-top: 18px;
+    margin-top: 16px;
+  }
+
+  &__contact:hover {
+    color: #2f231a;
   }
 
   &__contact span {
@@ -277,21 +271,23 @@
     min-width: 38px;
     height: 38px;
 
-    color: #7a5a3d;
-    background: rgba(255, 248, 237, 0.28);
-    border: 1px solid rgba(176, 130, 75, 0.38);
+    color: #796046;
+    background: rgba(255, 255, 255, 0.68);
+    border: 1px solid rgba(79, 59, 43, 0.13);
     border-radius: 50%;
 
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.34);
+    box-shadow:
+      0 10px 26px rgba(47, 35, 26, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.92);
 
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1;
   }
 
   &__socials {
     display: flex;
     gap: 12px;
-    margin-top: 26px;
+    margin-top: 24px;
   }
 
   &__socials a {
@@ -299,29 +295,38 @@
     align-items: center;
     justify-content: center;
 
-    width: 44px;
-    height: 44px;
+    width: 42px;
+    height: 42px;
 
-    color: #6a4d33;
-    background: rgba(255, 248, 237, 0.2);
-    border: 1px solid rgba(176, 130, 75, 0.46);
+    color: #796046;
+    background: rgba(255, 255, 255, 0.68);
+    border: 1px solid rgba(79, 59, 43, 0.14);
     border-radius: 50%;
 
-    font-size: 12px;
-    font-weight: 600;
+    box-shadow:
+      0 10px 26px rgba(47, 35, 26, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+    font-size: 11px;
+    font-weight: 700;
     line-height: 1;
     text-decoration: none;
+    text-transform: uppercase;
 
     transition:
       transform 0.25s ease,
+      color 0.25s ease,
       background 0.25s ease,
-      border-color 0.25s ease;
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
   }
 
   &__socials a:hover {
     transform: translateY(-3px);
-    background: rgba(255, 248, 237, 0.42);
-    border-color: rgba(176, 130, 75, 0.72);
+    color: #fffaf4;
+    background: #796046;
+    border-color: rgba(121, 96, 70, 0.38);
+    box-shadow: 0 16px 34px rgba(47, 35, 26, 0.12);
   }
 
   &__bottom {
@@ -330,12 +335,12 @@
     align-items: center;
     gap: 24px;
 
-    padding: 24px 110px;
+    padding: 22px clamp(54px, 7vw, 112px);
 
-    color: rgba(62, 46, 34, 0.68);
-    border-top: 1px solid rgba(255, 255, 255, 0.28);
+    color: rgba(47, 35, 26, 0.48);
+    border-top: 1px solid rgba(79, 59, 43, 0.1);
 
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 400;
     line-height: 1.4;
   }
@@ -345,14 +350,14 @@
   }
 
   &__bottom a {
-    color: rgba(62, 46, 34, 0.68);
+    color: rgba(47, 35, 26, 0.48);
     text-decoration: none;
 
     transition: color 0.25s ease;
   }
 
   &__bottom a:hover {
-    color: #2b2119;
+    color: #2f231a;
   }
 
   &__bottom a:last-child {
@@ -360,27 +365,14 @@
   }
 }
 
-@supports not ((backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))) {
-  .footer {
-    &__glass {
-      background:
-        linear-gradient(
-          135deg,
-          rgba(241, 228, 212, 0.92) 0%,
-          rgba(232, 215, 195, 0.82) 100%
-        );
-    }
-  }
-}
-
 @media (max-width: 1180px) {
   .footer {
-    padding: 84px 18px 32px;
+    padding: 64px 18px 28px;
 
     &__top {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 48px 64px;
-      padding: 54px 64px 48px;
+      gap: 46px 64px;
+      padding: 52px 58px 44px;
     }
 
     &__brand {
@@ -388,14 +380,14 @@
     }
 
     &__bottom {
-      padding: 22px 64px;
+      padding: 22px 58px;
     }
   }
 }
 
 @media (max-width: 760px) {
   .footer {
-    padding: 58px 12px 24px;
+    padding: 44px 12px 20px;
 
     &__glass {
       border-radius: 22px;
@@ -412,13 +404,14 @@
     }
 
     &__logo {
-      margin-bottom: 20px;
-      font-size: clamp(27px, 7vw, 38px);
+      margin-bottom: 18px;
+      font-size: clamp(28px, 7vw, 38px);
     }
 
     &__text {
       max-width: 100%;
       margin-bottom: 22px;
+
       font-size: 13px;
       line-height: 1.5;
     }
@@ -429,12 +422,13 @@
       gap: 8px;
 
       font-size: 10px;
-      letter-spacing: 0.035em;
+      letter-spacing: 0.04em;
     }
 
     &__title {
       margin-bottom: 24px;
-      font-size: 12px;
+      font-size: 11px;
+      letter-spacing: 0.16em;
     }
 
     &__nav a {
@@ -458,6 +452,7 @@
       width: 32px;
       min-width: 32px;
       height: 32px;
+
       font-size: 12px;
     }
 
@@ -476,7 +471,9 @@
     &__bottom {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px 18px;
+
       padding: 18px 22px;
+
       font-size: 11px;
     }
 
@@ -488,7 +485,7 @@
 
 @media (max-width: 420px) {
   .footer {
-    padding-top: 46px;
+    padding-top: 36px;
 
     &__top {
       gap: 30px 16px;

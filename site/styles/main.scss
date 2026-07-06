@@ -1,8 +1,6 @@
 @import './footer';
 
-// ======================================================
 // COLORS
-// ======================================================
 
 $color-beige: #e8d7c3;
 $color-beige-soft: #f1e4d4;
@@ -30,9 +28,7 @@ $gradient-page: linear-gradient(
   #e8d7c3 100%
 );
 
-// ======================================================
 // TYPOGRAPHY
-// ======================================================
 
 $font-text: "Manrope", Arial, Helvetica, sans-serif;
 
@@ -40,16 +36,12 @@ $fs-body: 16px;
 
 $lh-text: 1.65;
 
-// ======================================================
 // TRANSITIONS
-// ======================================================
 
 $ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
 $transition-base: 0.45s $ease-premium;
 
-// ======================================================
 // Z-INDEX
-// ======================================================
 
 $z-header: 50;
 $z-menu: 80;
@@ -1612,13 +1604,9 @@ body.is-lock {
 .works-preview {
   position: relative;
   overflow: hidden;
-
   min-height: 100svh;
   padding: clamp(56px, 7vw, 90px) clamp(20px, 4vw, 72px);
-
   color: #4d3a2b;
-
-
 
   &__glass {
     position: relative;
@@ -1630,13 +1618,7 @@ body.is-lock {
     padding: clamp(42px, 4.5vw, 76px);
 
     background:
-      linear-gradient(
-        135deg,
-        rgba(255, 248, 239, 0.58) 0%,
-        rgba(255, 245, 234, 0.44) 40%,
-        rgba(232, 215, 195, 0.28) 100%
-      ),
-      rgba(255, 247, 239, 0.18);
+      $color-beige;
 
     border: 1px solid rgba(255, 247, 239, 0.38);
     border-radius: 32px;
