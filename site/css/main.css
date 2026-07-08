@@ -357,7 +357,6 @@
 }
 
 html {
-  scroll-behavior: initial;
   font-family: "Manrope", Arial, Helvetica, sans-serif;
   text-rendering: geometricPrecision;
   -webkit-font-smoothing: antialiased;
@@ -367,7 +366,6 @@ html {
 body {
   min-width: 320px;
   margin: 0;
-  font-family: "Manrope", Arial, Helvetica, sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 1.65;
@@ -1089,7 +1087,6 @@ body.is-lock {
 }
 .section-three__title {
   margin: 0;
-  font-family: "Manrope", Arial, Helvetica, sans-serif;
   font-size: clamp(42px, 6vw, 96px);
   font-weight: 200;
   line-height: 1.16;

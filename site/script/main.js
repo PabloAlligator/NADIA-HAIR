@@ -6,12 +6,13 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initHeader();
+  initSmoothAnchorScroll();
   initHeroAnimation();
   initSectionTwoMarquee();
   initBeautyFlowBackground();
   initSectionThreeDecorReveal();
   initCompareSliders();
-});
+});;
 
 // ======================================================
 // HELPERS
@@ -644,4 +645,99 @@ function initCompareSliders() {
 
 function clampCompare(value, min, max) {
   return Math.min(Math.max(value, min), max);
+}
+
+// скролл
+
+function initSmoothAnchorScroll() {
+  const header = document.querySelector('[data-header]');
+  const prefersReducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  ).matches;
+
+  const getHeaderOffset = () => {
+    if (!header) return 24;
+
+    const headerHeight = header.getBoundingClientRect().height;
+
+    return headerHeight + 28;
+  };
+
+  const closeMobileMenu = () => {
+    if (!header) return;
+
+    const burger = header.querySelector('[data-burger]');
+
+    header.classList.remove('is-menu-open');
+    document.body.classList.remove('is-lock');
+
+    if (burger) {
+      burger.setAttribute('aria-expanded', 'false');
+      burger.setAttribute('aria-label', 'Открыть меню');
+    }
+  };
+
+  const scrollToTarget = (target, shouldUpdateHash = true) => {
+    if (!target) return;
+
+    const targetTop =
+      target.getBoundingClientRect().top + window.pageYOffset - getHeaderOffset();
+
+    closeMobileMenu();
+
+    window.scrollTo({
+      top: Math.max(targetTop, 0),
+      behavior: prefersReducedMotion ? 'auto' : 'smooth',
+    });
+
+    if (shouldUpdateHash && target.id) {
+      window.history.pushState(null, '', `#${target.id}`);
+    }
+  };
+
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('a[href]');
+
+    if (!link) return;
+
+    const href = link.getAttribute('href');
+
+    if (!href || href === '#') return;
+
+    let url;
+
+    try {
+      url = new URL(href, window.location.href);
+    } catch {
+      return;
+    }
+
+    if (!url.hash) return;
+
+    const isSamePage =
+      url.origin === window.location.origin &&
+      url.pathname === window.location.pathname;
+
+    if (!isSamePage) return;
+
+    const targetId = decodeURIComponent(url.hash.slice(1));
+    const target = document.getElementById(targetId);
+
+    if (!target) return;
+
+    event.preventDefault();
+
+    scrollToTarget(target);
+  });
+
+  if (window.location.hash) {
+    const targetId = decodeURIComponent(window.location.hash.slice(1));
+    const target = document.getElementById(targetId);
+
+    if (!target) return;
+
+    window.setTimeout(() => {
+      scrollToTarget(target, false);
+    }, 120);
+  }
 }

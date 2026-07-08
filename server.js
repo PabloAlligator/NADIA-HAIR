@@ -124,6 +124,83 @@ app.get('/api/blog-posts/:slug', async (req, res, next) => {
   }
 });
 
+app.get('/api/works', async (req, res, next) => {
+  try {
+    const status = String(req.query.status || '').toLowerCase();
+    const category = String(req.query.category || '').toLowerCase();
+    const home = String(req.query.home || '').toLowerCase();
+
+    const where = {};
+
+    if (status === 'published') {
+      where.isPublished = true;
+    }
+
+    if (home === 'true') {
+      where.showOnHome = true;
+    }
+
+    if (category && category !== 'all') {
+      where.categorySlug = category;
+    }
+
+    const works = await prisma.work.findMany({
+      where,
+      orderBy: [
+        {
+          createdAt: 'desc',
+        },
+      ],
+      select: {
+        id: true,
+        slug: true,
+        title: true,
+        excerpt: true,
+        category: true,
+        categorySlug: true,
+        beforeImage: true,
+        afterImage: true,
+        technique: true,
+        duration: true,
+        isPublished: true,
+        showOnHome: true,
+        createdAt: true,
+      },
+    });
+
+    res.json({
+      works,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.get('/api/works/:slug', async (req, res, next) => {
+  try {
+    const slug = String(req.params.slug || '').trim();
+
+    const work = await prisma.work.findFirst({
+      where: {
+        slug,
+        isPublished: true,
+      },
+    });
+
+    if (!work) {
+      return res.status(404).json({
+        message: 'Работа не найдена',
+      });
+    }
+
+    res.json({
+      work,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 app.use('/api', (req, res) => {
   res.status(404).json({
     message: 'API route not found',

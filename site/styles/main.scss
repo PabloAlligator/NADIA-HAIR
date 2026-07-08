@@ -57,7 +57,7 @@ $z-menu: 80;
 }
 
 html {
-  scroll-behavior: initial;
+  // scroll-behavior: initial;
   font-family: $font-text;
   text-rendering: geometricPrecision;
   -webkit-font-smoothing: antialiased;
@@ -67,7 +67,7 @@ html {
 body {
    min-width: 320px;
   margin: 0;
-  font-family: $font-text;
+  // font-family: $font-text;
   font-size: $fs-body;
   font-weight: 400;
   line-height: $lh-text;
@@ -1138,7 +1138,7 @@ body.is-lock {
   &__title {
     margin: 0;
 
-    font-family: $font-text;
+    // font-family: $font-text;
     font-size: clamp(42px, 6vw, 96px);
     font-weight: 200;
     line-height: 1.16;

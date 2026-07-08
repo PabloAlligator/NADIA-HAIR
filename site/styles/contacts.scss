@@ -21,17 +21,13 @@ $color-text-light: #fff7ef;
 $color-border: rgba(79, 59, 43, 0.14);
 $color-border-light: rgba(255, 247, 239, 0.36);
 
-$gradient-page: linear-gradient(
-  180deg,
-  #f7efe6 0%,
-  #f1e4d4 38%,
-  #e8d7c3 100%
-);
+$gradient-page: linear-gradient(180deg, #f7efe6 0%, #f1e4d4 38%, #e8d7c3 100%);
 
 // TYPOGRAPHY
 
-$font-text: "Manrope", Arial, Helvetica, sans-serif;
-$font-title: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+$font-text: 'Manrope', Arial, Helvetica, sans-serif;
+$font-title: 'Manrope', Arial, Helvetica, sans-serif;
+$font-accent: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
 
 $fs-body: 16px;
 
@@ -58,7 +54,7 @@ $z-menu: 80;
 }
 
 html {
-  scroll-behavior: initial;
+  // scroll-behavior: initial;
   font-family: $font-text;
   text-rendering: geometricPrecision;
   -webkit-font-smoothing: antialiased;
@@ -66,7 +62,7 @@ html {
 }
 
 body {
-   min-width: 320px;
+  min-width: 320px;
   margin: 0;
   font-family: $font-text;
   font-size: $fs-body;
@@ -113,7 +109,6 @@ a {
     ),
     $gradient-page;
 }
-
 
 .glass {
   --glass-blur: blur(18px) saturate(1.25);
@@ -700,7 +695,7 @@ body.is-lock {
   position: relative;
   min-height: 100svh;
   overflow: hidden;
-   isolation: isolate;
+  isolation: isolate;
   background: $color-brown;
   color: $color-text-light;
 
@@ -728,10 +723,15 @@ body.is-lock {
     flex-direction: column;
     justify-content: center;
 
-    padding: clamp(120px, 12vw, 180px) clamp(42px, 5.6vw, 110px) clamp(70px, 7vw, 110px);
+    padding: clamp(120px, 12vw, 180px) clamp(42px, 5.6vw, 110px)
+      clamp(70px, 7vw, 110px);
 
     background:
-      radial-gradient(circle at 16% 22%, rgba(255, 247, 239, 0.12), transparent 30%),
+      radial-gradient(
+        circle at 16% 22%,
+        rgba(255, 247, 239, 0.12),
+        transparent 30%
+      ),
       linear-gradient(135deg, #796046 0%, #6f573f 58%, #5a4432 100%);
 
     border-right: 1px solid rgba(255, 247, 239, 0.14);
@@ -750,15 +750,15 @@ body.is-lock {
   }
 
   &__title {
-    max-width: 720px;
+    max-width: 760px;
     margin: 0;
-    font-style: italic;
     color: $color-text-light;
     font-family: $font-title;
-    font-size: clamp(58px, 6.8vw, 128px);
-    font-weight: 700;
-    line-height: 0.88;
-    letter-spacing: 1.5px;
+    font-size: clamp(54px, 7vw, 116px);
+    font-style: normal;
+    font-weight: 300;
+    line-height: 0.9;
+    letter-spacing: -0.065em;
     text-transform: uppercase;
   }
 
@@ -907,22 +907,22 @@ body.is-lock {
   //   pointer-events: none;
   // }
 
-.contact-hero__visual img {
-  width: 100%;
-  height: 100%;
+  .contact-hero__visual img {
+    width: 100%;
+    height: 100%;
 
-  object-fit: cover;
-  object-position: 62% 14%;
+    object-fit: cover;
+    object-position: 62% 14%;
 
-  filter: saturate(0.92) contrast(1.02) brightness(0.86);
-  transform: scale(1);
-  transform-origin: 62% 34%;
+    filter: saturate(0.92) contrast(1.02) brightness(0.86);
+    transform: scale(1);
+    transform-origin: 62% 34%;
 
-  user-select: none;
-  pointer-events: none;
+    user-select: none;
+    pointer-events: none;
 
-  will-change: transform, object-position;
-}
+    will-change: transform, object-position;
+  }
 
   &__quote {
     position: absolute;
@@ -988,7 +988,11 @@ body.is-lock {
       border-right: none;
 
       background:
-        radial-gradient(circle at 18% 12%, rgba(255, 247, 239, 0.1), transparent 34%),
+        radial-gradient(
+          circle at 18% 12%,
+          rgba(255, 247, 239, 0.1),
+          transparent 34%
+        ),
         linear-gradient(135deg, #796046 0%, #6f573f 62%, #5a4432 100%);
     }
 
@@ -1484,13 +1488,12 @@ body.is-lock {
     inset: 0;
     z-index: 2;
 
-    background:
-      linear-gradient(
-        180deg,
-        rgba(255, 247, 239, 0.04) 0%,
-        rgba(255, 247, 239, 0.14) 42%,
-        rgba(24, 18, 14, 0.72) 100%
-      );
+    background: linear-gradient(
+      180deg,
+      rgba(255, 247, 239, 0.04) 0%,
+      rgba(255, 247, 239, 0.14) 42%,
+      rgba(24, 18, 14, 0.72) 100%
+    );
 
     pointer-events: none;
   }

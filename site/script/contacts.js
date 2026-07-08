@@ -4,10 +4,11 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initHeader();
+  initSmoothAnchorScroll();
   initContactHero();
-   initContactServicesIntro();
-   initContactsFlowBackground();
-   initContactEquipment();
+  initContactServicesIntro();
+  initContactsFlowBackground();
+  initContactEquipment();
 });
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
@@ -123,7 +124,7 @@ function initHeader() {
     },
     {
       passive: true,
-    }
+    },
   );
 
   document.addEventListener(
@@ -141,7 +142,7 @@ function initHeader() {
     },
     {
       passive: true,
-    }
+    },
   );
 
   updateHeader();
@@ -152,7 +153,8 @@ function initContactHero() {
   const section = document.querySelector('.js-contact-hero');
 
   if (!section) return;
-  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined')
+    return;
 
   const content = section.querySelector('.contact-hero__content');
   const visual = section.querySelector('.contact-hero__visual');
@@ -215,7 +217,7 @@ function initContactHero() {
           duration: 0.34,
           ease: 'none',
         },
-        0
+        0,
       )
       .to(
         visual,
@@ -224,7 +226,7 @@ function initContactHero() {
           duration: 0.58,
           ease: 'none',
         },
-        0
+        0,
       )
       .to(
         image,
@@ -235,7 +237,7 @@ function initContactHero() {
           duration: 0.82,
           ease: 'none',
         },
-        0.22
+        0.22,
       )
       .to(
         quote,
@@ -245,7 +247,7 @@ function initContactHero() {
           duration: 0.32,
           ease: 'none',
         },
-        0.58
+        0.58,
       )
       .to(
         quote,
@@ -255,7 +257,7 @@ function initContactHero() {
           duration: 0.2,
           ease: 'none',
         },
-        0.92
+        0.92,
       );
 
     if (image.complete) {
@@ -268,7 +270,7 @@ function initContactHero() {
         },
         {
           once: true,
-        }
+        },
       );
     }
 
@@ -290,7 +292,8 @@ function initContactServicesIntro() {
   const section = document.querySelector('.js-contact-services-intro');
 
   if (!section) return;
-  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined')
+    return;
 
   const topLines = section.querySelectorAll('.js-services-intro-top');
   const smallWords = section.querySelectorAll('.js-services-intro-small');
@@ -332,7 +335,7 @@ function initContactServicesIntro() {
         stagger: 0.08,
         ease: 'power3.out',
       },
-      '-=0.68'
+      '-=0.68',
     )
     .to(
       text,
@@ -343,7 +346,7 @@ function initContactServicesIntro() {
         duration: 0.9,
         ease: 'power3.out',
       },
-      '-=0.42'
+      '-=0.42',
     )
     .to(
       bottom,
@@ -354,7 +357,7 @@ function initContactServicesIntro() {
         duration: 1,
         ease: 'power3.out',
       },
-      '-=0.5'
+      '-=0.5',
     );
 
   gsap.fromTo(
@@ -371,7 +374,7 @@ function initContactServicesIntro() {
         start: 'top 74%',
         toggleActions: 'play none none reverse',
       },
-    }
+    },
   );
 }
 
@@ -422,7 +425,8 @@ function initContactEquipment() {
   const section = document.querySelector('.js-contact-equipment');
 
   if (!section) return;
-  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined')
+    return;
 
   const title = section.querySelector('.contact-equipment__title');
   const fades = section.querySelectorAll('.js-equipment-fade');
@@ -459,7 +463,7 @@ function initContactEquipment() {
         stagger: 0.08,
         ease: 'power3.out',
       },
-      '-=0.68'
+      '-=0.68',
     )
     .to(
       cards,
@@ -471,6 +475,102 @@ function initContactEquipment() {
         stagger: 0.12,
         ease: 'power3.out',
       },
-      '-=0.42'
+      '-=0.42',
     );
+}
+
+
+//  скролл
+
+function initSmoothAnchorScroll() {
+  const header = document.querySelector('[data-header]');
+  const prefersReducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  ).matches;
+
+  const getHeaderOffset = () => {
+    if (!header) return 24;
+
+    const headerHeight = header.getBoundingClientRect().height;
+
+    return headerHeight + 28;
+  };
+
+  const closeMobileMenu = () => {
+    if (!header) return;
+
+    const burger = header.querySelector('[data-burger]');
+
+    header.classList.remove('is-menu-open');
+    document.body.classList.remove('is-lock');
+
+    if (burger) {
+      burger.setAttribute('aria-expanded', 'false');
+      burger.setAttribute('aria-label', 'Открыть меню');
+    }
+  };
+
+  const scrollToTarget = (target, shouldUpdateHash = true) => {
+    if (!target) return;
+
+    const targetTop =
+      target.getBoundingClientRect().top + window.pageYOffset - getHeaderOffset();
+
+    closeMobileMenu();
+
+    window.scrollTo({
+      top: Math.max(targetTop, 0),
+      behavior: prefersReducedMotion ? 'auto' : 'smooth',
+    });
+
+    if (shouldUpdateHash && target.id) {
+      window.history.pushState(null, '', `#${target.id}`);
+    }
+  };
+
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('a[href]');
+
+    if (!link) return;
+
+    const href = link.getAttribute('href');
+
+    if (!href || href === '#') return;
+
+    let url;
+
+    try {
+      url = new URL(href, window.location.href);
+    } catch {
+      return;
+    }
+
+    if (!url.hash) return;
+
+    const isSamePage =
+      url.origin === window.location.origin &&
+      url.pathname === window.location.pathname;
+
+    if (!isSamePage) return;
+
+    const targetId = decodeURIComponent(url.hash.slice(1));
+    const target = document.getElementById(targetId);
+
+    if (!target) return;
+
+    event.preventDefault();
+
+    scrollToTarget(target);
+  });
+
+  if (window.location.hash) {
+    const targetId = decodeURIComponent(window.location.hash.slice(1));
+    const target = document.getElementById(targetId);
+
+    if (!target) return;
+
+    window.setTimeout(() => {
+      scrollToTarget(target, false);
+    }, 120);
+  }
 }

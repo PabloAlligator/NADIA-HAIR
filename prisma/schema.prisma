@@ -26,3 +26,30 @@ model BlogPost {
   @@index([categorySlug])
   @@index([publishedAt])
 }
+
+model Work {
+  id           Int      @id @default(autoincrement())
+  slug         String   @unique
+
+  title        String
+  excerpt      String   @default("")
+
+  category     String   @default("Работа")
+  categorySlug String   @default("airtouch")
+
+  beforeImage  String
+  afterImage   String
+
+  technique    String   @default("")
+  duration     String   @default("")
+
+  isPublished  Boolean  @default(false)
+  showOnHome   Boolean  @default(false)
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([isPublished])
+  @@index([showOnHome])
+  @@index([categorySlug])
+}
