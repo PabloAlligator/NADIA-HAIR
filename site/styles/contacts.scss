@@ -1264,52 +1264,94 @@ body.is-lock {
 @media (max-width: 900px) {
   .contact-services-intro {
     min-height: auto;
-    padding: 76px 16px 72px;
+    padding: clamp(92px, 14vw, 132px) clamp(16px, 4vw, 32px)
+      clamp(88px, 12vw, 124px);
+
+    overflow: hidden;
 
     &__inner {
-      min-height: auto;
-      display: block;
-    }
+      width: min(100%, 760px);
+      height: auto;
+      min-height: 0;
+      margin: 0 auto;
 
-    &__visual {
-      width: 100%;
-      min-width: 0;
-      height: 58svh;
-      min-height: 460px;
-      margin-top: 220px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(26px, 5vw, 42px);
     }
 
     &__content {
-      position: absolute;
-      inset: 0;
+      position: static;
+      inset: auto;
+
+      display: contents;
+
+      pointer-events: auto;
     }
 
     &__top {
-      top: 0;
-      left: 0;
+      position: relative;
+      top: auto;
+      left: auto;
+
       width: 100%;
+
       transform: none;
     }
 
     &__line {
-      font-size: clamp(39px, 13vw, 72px);
-      line-height: 0.92;
-      letter-spacing: -0.065em;
+      font-size: clamp(48px, 13vw, 96px);
+      line-height: 0.88;
+      letter-spacing: -0.07em;
+    }
+
+    &__line--one {
+      text-align: left;
     }
 
     &__line--two {
-      padding-left: 28%;
+      max-width: 92%;
       margin-top: 6px;
+      padding-left: 18%;
+
+      text-align: left;
+    }
+
+    &__small {
+      font-size: clamp(19px, 4.4vw, 28px);
     }
 
     &__small--our {
       left: 34%;
-      top: 56px;
+      top: clamp(58px, 11vw, 86px);
     }
 
     &__small--with {
-      right: 8px;
-      top: -8px;
+      right: 2px;
+      top: -6px;
+    }
+
+    &__visual {
+      position: relative;
+      top: auto;
+      left: auto;
+      z-index: 1;
+
+      width: min(100%, 620px);
+      height: clamp(420px, 68svh, 680px);
+      margin: 0 auto;
+
+      transform: none;
+
+      border-radius: 28px;
+
+      box-shadow:
+        0 28px 86px rgba(47, 35, 26, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    }
+
+    &__visual img {
+      object-position: center center;
     }
 
     &__text {
@@ -1317,13 +1359,17 @@ body.is-lock {
       left: auto;
       bottom: auto;
 
-      width: 100%;
-      margin: 28px auto 0;
+      width: min(100%, 620px);
+      margin: 0;
 
       transform: translateY(24px);
 
-      font-size: 14px;
+      font-size: clamp(15px, 2.4vw, 18px);
+      font-weight: 500;
+      line-height: 1.58;
       text-align: left;
+
+      color: rgba(255, 247, 239, 0.86);
     }
 
     &__bottom {
@@ -1331,11 +1377,14 @@ body.is-lock {
       left: auto;
       bottom: auto;
 
-      margin-top: 28px;
+      width: 100%;
+      margin: -4px 0 0;
 
       transform: translateY(36px);
 
-      font-size: clamp(42px, 13vw, 72px);
+      font-size: clamp(42px, 12vw, 86px);
+      line-height: 0.9;
+      letter-spacing: -0.065em;
       text-align: left;
     }
   }
@@ -1343,18 +1392,22 @@ body.is-lock {
 
 @media (max-width: 520px) {
   .contact-services-intro {
-    &__visual {
-      margin-top: 190px;
-      height: 52svh;
-      min-height: 390px;
+    padding: 82px 16px 86px;
+
+    &__inner {
+      gap: 24px;
     }
 
     &__line {
-      font-size: clamp(34px, 12vw, 56px);
+      font-size: clamp(40px, 14vw, 62px);
+      line-height: 0.9;
+      letter-spacing: -0.065em;
     }
 
     &__line--two {
-      padding-left: 24%;
+      max-width: 100%;
+      padding-left: 14%;
+      margin-top: 5px;
     }
 
     &__small {
@@ -1362,12 +1415,56 @@ body.is-lock {
     }
 
     &__small--our {
-      left: 33%;
-      top: 48px;
+      left: 32%;
+      top: 52px;
+    }
+
+    &__small--with {
+      right: 0;
+      top: -7px;
+    }
+
+    &__visual {
+      width: 100%;
+      height: 56svh;
+      min-height: 390px;
+      max-height: 560px;
+
+      border-radius: 24px;
+    }
+
+    &__text {
+      font-size: 15px;
+      line-height: 1.55;
     }
 
     &__bottom {
-      font-size: clamp(38px, 12vw, 58px);
+      font-size: clamp(38px, 13vw, 58px);
+      line-height: 0.92;
+    }
+  }
+}
+
+@media (max-width: 380px) {
+  .contact-services-intro {
+    padding-left: 14px;
+    padding-right: 14px;
+
+    &__line {
+      font-size: clamp(36px, 13.4vw, 52px);
+    }
+
+    &__line--two {
+      padding-left: 10%;
+    }
+
+    &__visual {
+      min-height: 350px;
+      border-radius: 22px;
+    }
+
+    &__bottom {
+      font-size: clamp(34px, 12.6vw, 50px);
     }
   }
 }
@@ -1607,12 +1704,14 @@ body.is-lock {
     padding: 76px 16px 86px;
 
     &__number {
-      font-size: 22px;
+      font-size: 18px;
+      margin-bottom: -6px;
     }
 
     &__title {
-      font-size: clamp(46px, 16vw, 76px);
-      line-height: 0.86;
+      font-size: clamp(36px, 10.4vw, 52px);
+      line-height: 0.94;
+      letter-spacing: -0.055em;
     }
 
     &__lead {

@@ -43,6 +43,12 @@ model Work {
   technique    String   @default("")
   duration     String   @default("")
 
+  heroImage       String @default("")
+  experienceImage String @default("")
+  heroQuote       String @default("")
+  story           String @default("")
+  gallery         String @default("[]")
+
   isPublished  Boolean  @default(false)
   showOnHome   Boolean  @default(false)
 

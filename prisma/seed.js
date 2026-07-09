@@ -136,101 +136,256 @@ async function seedWorks() {
       excerpt: 'Мягкая растяжка, чистый блонд и сохранение качества волос.',
       category: 'Аиртач',
       categorySlug: 'airtouch',
-      beforeImage: '/site/img/works/airtouch-01-before.webp',
-      afterImage: '/site/img/works/airtouch-01-after.webp',
+
+      beforeImage: '/site/img/img1bef.jpg',
+      afterImage: '/site/img/img2aft.jpg',
+
       technique: 'AirTouch',
       duration: '5 часов',
+
+      heroImage: '/site/img/img2aft.jpg',
+      experienceImage: '/site/img/main-hero-bg.png',
+      heroQuote: 'Это не просто цвет. Это ощущение себя красивой.',
+      story:
+        'Задача была сохранить мягкость образа, добавить светлые переливы и сделать цвет чище, не перегружая волосы осветлением. Мы начали с диагностики полотна, аккуратно распределили пряди и подобрали оттенок так, чтобы результат выглядел мягко, дорого и естественно.',
+
+      gallery: JSON.stringify([
+        '/site/img/img2aft.jpg',
+        '/site/img/main-hero-bg.png',
+        '/site/img/pablito.jpg',
+        '/site/img/pablito.jpg',
+        '/site/img/pablito.jpg',
+        '/site/img/pablito.jpg',
+        '/site/img/pablito.jpg',
+        '/site/img/pablito.jpg',
+        '/site/img/pablito.jpg',
+        '/site/img/pablito.jpg',
+        '/site/img/pablito.jpg',
+        '/site/img/pablito.jpg',
+        '/site/img/pablito.jpg',
+        '/site/img/pablito.jpg',
+        '/site/img/pablito.jpg',
+      ]),
+
+      createdAt: new Date('2026-07-09T10:00:00.000Z'),
+
       isPublished: true,
       showOnHome: true,
     },
+
     {
       slug: 'total-blond-clean-shade',
       title: 'Тотал блонд без желтизны',
       excerpt: 'Чистый светлый оттенок, мягкий переход и визуальная плотность.',
       category: 'Тотал блонд',
       categorySlug: 'total-blond',
+
       beforeImage: '/site/img/works/total-blond-01-before.webp',
       afterImage: '/site/img/works/total-blond-01-after.webp',
+
       technique: 'Тотал блонд',
       duration: '6 часов',
+
+      heroImage: '/site/img/works/total-blond-01-after.webp',
+      experienceImage: '/site/img/works/total-blond-01-after.webp',
+      heroQuote: 'Чистый оттенок, мягкость и ощущение дорогого блонда.',
+      story:
+        'В этой работе главной задачей было получить чистый светлый оттенок без жёлтого фона и при этом сохранить визуальную плотность волос. Мы работали поэтапно, контролируя фон осветления и финальное тонирование.',
+
+      gallery: JSON.stringify([
+        '/site/img/works/total-blond-01-after.webp',
+        '/site/img/works/total-blond-01-before.webp',
+        '/site/img/contacts/services-intro3.png',
+      ]),
+
+      createdAt: new Date('2026-07-08T10:00:00.000Z'),
+
       isPublished: true,
       showOnHome: true,
     },
+
     {
       slug: 'shatush-soft-color',
       title: 'Шатуш в мягкой гамме',
       excerpt: 'Естественные переливы и аккуратный эффект выгоревших прядей.',
       category: 'Шатуш',
       categorySlug: 'shatush',
+
       beforeImage: '/site/img/works/shatush-01-before.webp',
       afterImage: '/site/img/works/shatush-01-after.webp',
+
       technique: 'Шатуш',
       duration: '4 часа',
+
+      heroImage: '/site/img/works/shatush-01-after.webp',
+      experienceImage: '/site/img/works/shatush-01-after.webp',
+      heroQuote: 'Мягкие переливы, которые выглядят естественно и дорого.',
+      story:
+        'Здесь мы сделали ставку на естественность: мягкие переходы, спокойную гамму и эффект лёгкого выгорания на солнце. Такой результат не выглядит резко и красиво раскрывается в движении волос.',
+
+      gallery: JSON.stringify([
+        '/site/img/works/shatush-01-after.webp',
+        '/site/img/works/shatush-01-before.webp',
+        '/site/img/contacts/services-intro3.png',
+      ]),
+
+      createdAt: new Date('2026-07-07T10:00:00.000Z'),
+
       isPublished: true,
       showOnHome: false,
     },
+
     {
       slug: 'toning-expensive-brown',
       title: 'Тонирование и дорогой блеск',
       excerpt: 'Глубокий оттенок, мягкое сияние и ухоженное полотно волос.',
       category: 'Тонирование',
       categorySlug: 'toning',
+
       beforeImage: '/site/img/works/toning-01-before.webp',
       afterImage: '/site/img/works/toning-01-after.webp',
+
       technique: 'Тонирование',
       duration: '2 часа',
+
+      heroImage: '/site/img/works/toning-01-after.webp',
+      experienceImage: '/site/img/works/toning-01-after.webp',
+      heroQuote: 'Глубина оттенка и блеск, который видно сразу.',
+      story:
+        'Тонирование помогло сделать оттенок глубже, мягче и визуально дороже. Мы усилили блеск полотна, убрали лишнюю тусклость и сделали волосы более ухоженными на вид.',
+
+      gallery: JSON.stringify([
+        '/site/img/works/toning-01-after.webp',
+        '/site/img/works/toning-01-before.webp',
+        '/site/img/contacts/services-intro3.png',
+      ]),
+
+      createdAt: new Date('2026-07-06T10:00:00.000Z'),
+
       isPublished: true,
       showOnHome: true,
     },
+
     {
       slug: 'gray-hair-soft-blending',
       title: 'Мягкая работа с сединой',
       excerpt: 'Деликатное смешение седины с основным оттенком без грубой линии.',
       category: 'Работа с сединой',
       categorySlug: 'gray-hair',
+
       beforeImage: '/site/img/works/gray-hair-01-before.webp',
       afterImage: '/site/img/works/gray-hair-01-after.webp',
+
       technique: 'Работа с сединой',
       duration: '4 часа',
+
+      heroImage: '/site/img/works/gray-hair-01-after.webp',
+      experienceImage: '/site/img/works/gray-hair-01-after.webp',
+      heroQuote: 'Деликатный результат без грубой линии и резкого контраста.',
+      story:
+        'В этой работе важно было не просто перекрыть седину, а мягко вписать её в общий образ. Мы сделали оттенок спокойнее, благороднее и сохранили естественное ощущение цвета.',
+
+      gallery: JSON.stringify([
+        '/site/img/works/gray-hair-01-after.webp',
+        '/site/img/works/gray-hair-01-before.webp',
+        '/site/img/contacts/services-intro3.png',
+      ]),
+
+      createdAt: new Date('2026-07-05T10:00:00.000Z'),
+
       isPublished: true,
       showOnHome: false,
     },
+
     {
       slug: 'recovery-after-lightening',
       title: 'Восстановление после осветления',
       excerpt: 'Мягкость, блеск и визуально более плотная структура волос.',
       category: 'Восстановление',
       categorySlug: 'recovery',
+
       beforeImage: '/site/img/works/recovery-01-before.webp',
       afterImage: '/site/img/works/recovery-01-after.webp',
+
       technique: 'Восстановление',
       duration: '1.5 часа',
+
+      heroImage: '/site/img/works/recovery-01-after.webp',
+      experienceImage: '/site/img/works/recovery-01-after.webp',
+      heroQuote: 'Когда волосы снова выглядят мягкими, живыми и ухоженными.',
+      story:
+        'После осветления волосам часто не хватает плотности, мягкости и блеска. Мы сделали уходовую процедуру, чтобы визуально уплотнить полотно и вернуть ощущение ухоженности.',
+
+      gallery: JSON.stringify([
+        '/site/img/works/recovery-01-after.webp',
+        '/site/img/works/recovery-01-before.webp',
+        '/site/img/contacts/services-intro3.png',
+      ]),
+
+      createdAt: new Date('2026-07-04T10:00:00.000Z'),
+
       isPublished: true,
       showOnHome: false,
     },
+
     {
       slug: 'care-gloss-effect',
       title: 'Уход и зеркальный блеск',
       excerpt: 'Гладкие, плотные и сияющие волосы после курса ухода.',
       category: 'Уход',
       categorySlug: 'care',
+
       beforeImage: '/site/img/works/care-01-before.webp',
       afterImage: '/site/img/works/care-01-after.webp',
+
       technique: 'Уход',
       duration: '1.5 часа',
+
+      heroImage: '/site/img/works/care-01-after.webp',
+      experienceImage: '/site/img/works/care-01-after.webp',
+      heroQuote: 'Блеск, мягкость и волосы, к которым хочется прикасаться.',
+      story:
+        'Главная задача ухода — вернуть волосам мягкость, плотность и красивое отражение света. После процедуры полотно выглядит более гладким, живым и сияющим.',
+
+      gallery: JSON.stringify([
+        '/site/img/works/care-01-after.webp',
+        '/site/img/works/care-01-before.webp',
+        '/site/img/contacts/services-intro3.png',
+      ]),
+
+      createdAt: new Date('2026-07-03T10:00:00.000Z'),
+
       isPublished: true,
       showOnHome: false,
     },
+
     {
       slug: 'reconstruction-hair-length',
       title: 'Реконструкция длины',
       excerpt: 'Бережное восстановление полотна без потери естественного движения.',
       category: 'Реконструкция',
       categorySlug: 'reconstruction',
+
       beforeImage: '/site/img/works/reconstruction-01-before.webp',
       afterImage: '/site/img/works/reconstruction-01-after.webp',
+
       technique: 'Реконструкция',
       duration: '2 часа',
+
+      heroImage: '/site/img/works/reconstruction-01-after.webp',
+      experienceImage: '/site/img/works/reconstruction-01-after.webp',
+      heroQuote: 'Восстановление, которое сохраняет естественность движения.',
+      story:
+        'Реконструкция помогает сделать длину визуально более плотной, мягкой и ухоженной. В этой работе мы сохранили естественное движение волос и усилили ощущение здорового полотна.',
+
+      gallery: JSON.stringify([
+        '/site/img/works/reconstruction-01-after.webp',
+        '/site/img/works/reconstruction-01-before.webp',
+        '/site/img/contacts/services-intro3.png',
+      ]),
+
+      createdAt: new Date('2026-07-02T10:00:00.000Z'),
+
       isPublished: true,
       showOnHome: false,
     },
