@@ -72,11 +72,7 @@ a {
     overflow: hidden;
     color: #fffaf5;
     background:
-      linear-gradient(
-        180deg,
-        rgba(26, 18, 13, 0.18),
-        rgba(26, 18, 13, 0.72)
-      ),
+      linear-gradient(180deg, rgba(26, 18, 13, 0.18), rgba(26, 18, 13, 0.72)),
       radial-gradient(
         circle at 72% 20%,
         rgba(218, 183, 156, 0.42),
@@ -90,22 +86,10 @@ a {
       content: '';
       opacity: 0.16;
       background-image:
-        linear-gradient(
-          rgba(255, 255, 255, 0.3) 1px,
-          transparent 1px
-        ),
-        linear-gradient(
-          90deg,
-          rgba(255, 255, 255, 0.3) 1px,
-          transparent 1px
-        );
+        linear-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.3) 1px, transparent 1px);
       background-size: 64px 64px;
-      mask-image: linear-gradient(
-        to bottom,
-        transparent,
-        #000,
-        transparent
-      );
+      mask-image: linear-gradient(to bottom, transparent, #000, transparent);
     }
   }
 
@@ -501,10 +485,17 @@ a {
 }
 
 .admin-user {
-  display: grid;
-  justify-items: end;
-  gap: 5px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 18px;
   padding-top: 8px;
+
+  &__info {
+    display: grid;
+    justify-items: end;
+    gap: 5px;
+  }
 
   &__role {
     color: $admin-accent-dark;
@@ -516,6 +507,35 @@ a {
   &__email {
     color: $admin-dark-soft;
     font-size: 11px;
+  }
+
+  &__logout-mobile {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 0 18px;
+    border: 1px solid $admin-line;
+    border-radius: 999px;
+    color: $admin-dark;
+    background: rgba(255, 250, 245, 0.72);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease,
+      opacity 0.2s ease;
+
+    &:hover {
+      border-color: rgba($admin-accent, 0.5);
+      background: $admin-surface;
+    }
+
+    &:disabled {
+      opacity: 0.55;
+      cursor: wait;
+    }
   }
 }
 
@@ -663,7 +683,28 @@ a {
   }
 
   .admin-user {
-    justify-items: start;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding-top: 0;
+
+    &__info {
+      min-width: 0;
+      justify-items: start;
+    }
+
+    &__email {
+      max-width: 190px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &__logout-mobile {
+      display: inline-flex;
+      flex: 0 0 auto;
+    }
   }
 
   .admin-dashboard {

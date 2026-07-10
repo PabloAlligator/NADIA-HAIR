@@ -393,10 +393,16 @@ a {
 }
 
 .admin-user {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 18px;
+  padding-top: 8px;
+}
+.admin-user__info {
   display: grid;
   justify-items: end;
   gap: 5px;
-  padding-top: 8px;
 }
 .admin-user__role {
   color: #795844;
@@ -407,6 +413,29 @@ a {
 .admin-user__email {
   color: #5d4a3d;
   font-size: 11px;
+}
+.admin-user__logout-mobile {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 18px;
+  border: 1px solid rgba(47, 35, 26, 0.14);
+  border-radius: 999px;
+  color: #2f231a;
+  background: rgba(255, 250, 245, 0.72);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+}
+.admin-user__logout-mobile:hover {
+  border-color: rgba(154, 118, 92, 0.5);
+  background: #fffaf5;
+}
+.admin-user__logout-mobile:disabled {
+  opacity: 0.55;
+  cursor: wait;
 }
 
 .admin-dashboard {
@@ -526,7 +555,25 @@ a {
     display: grid;
   }
   .admin-user {
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding-top: 0;
+  }
+  .admin-user__info {
+    min-width: 0;
     justify-items: start;
+  }
+  .admin-user__email {
+    max-width: 190px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .admin-user__logout-mobile {
+    display: inline-flex;
+    flex: 0 0 auto;
   }
   .admin-dashboard {
     padding-top: 38px;
