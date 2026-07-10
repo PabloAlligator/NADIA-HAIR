@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+
+    <title>Панель управления — Клуб Эстетики</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/site/css//admin.min.css" />
+
+    <script src="/site/script/admin/admin.js" defer></script>
+  </head>
+
+  <body class="admin-body" data-admin-page="dashboard">
+    <div class="admin-shell">
+      <aside class="admin-sidebar">
+        <a class="admin-sidebar__logo" href="/admin/dashboard">
+          Клуб Эстетики
+        </a>
+
+        <span class="admin-sidebar__caption"> Управление </span>
+
+        <nav class="admin-sidebar__nav" aria-label="Навигация админ-панели">
+          <a
+            class="admin-sidebar__link admin-sidebar__link--active"
+            href="/admin/dashboard"
+          >
+            Обзор
+          </a>
+
+          <a class="admin-sidebar__link" href="/admin/requests"> Заявки </a>
+
+          <a class="admin-sidebar__link" href="/admin/works" data-owner-only>
+            Работы
+          </a>
+
+          <a class="admin-sidebar__link" href="/admin/blog" data-owner-only>
+            Статьи
+          </a>
+        </nav>
+
+        <div class="admin-sidebar__bottom">
+          <a class="admin-sidebar__site-link" href="/"> Открыть сайт </a>
+
+          <button class="admin-sidebar__logout" type="button" data-admin-logout>
+            Выйти
+          </button>
+        </div>
+      </aside>
+
+      <main class="admin-main">
+        <header class="admin-header">
+          <div>
+            <span class="admin-header__eyebrow"> Панель управления </span>
+
+            <h1 class="admin-header__title">
+              Добро пожаловать,
+              <span data-admin-user-name>пользователь</span>
+            </h1>
+          </div>
+
+          <div class="admin-user">
+            <span class="admin-user__role" data-admin-user-role> — </span>
+
+            <span class="admin-user__email" data-admin-user-email> — </span>
+          </div>
+        </header>
+
+        <section class="admin-dashboard">
+          <article class="admin-dashboard__intro">
+            <span class="admin-dashboard__caption"> Клуб Эстетики </span>
+
+            <h2 class="admin-dashboard__title">
+              Административная панель подключена
+            </h2>
+
+            <p class="admin-dashboard__text">
+              Авторизация, серверная сессия, проверка роли и защищённый выход
+              работают корректно.
+            </p>
+          </article>
+
+          <div class="admin-dashboard__cards">
+            <article class="admin-stat-card">
+              <span class="admin-stat-card__label"> Статус системы </span>
+
+              <strong class="admin-stat-card__value"> Активна </strong>
+
+              <span class="admin-stat-card__note">
+                Защищённое соединение с API
+              </span>
+            </article>
+
+            <article class="admin-stat-card">
+              <span class="admin-stat-card__label"> Ваша роль </span>
+
+              <strong class="admin-stat-card__value" data-admin-role-card>
+                —
+              </strong>
+
+              <span class="admin-stat-card__note">
+                Права проверяются на сервере
+              </span>
+            </article>
+
+            <article class="admin-stat-card">
+              <span class="admin-stat-card__label"> Сессия </span>
+
+              <strong class="admin-stat-card__value"> Защищена </strong>
+
+              <span class="admin-stat-card__note">
+                HttpOnly cookie и CSRF
+              </span>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

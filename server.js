@@ -5,41 +5,54 @@ require('dotenv').config();
 const path = require('path');
 const express = require('express');
 const helmet = require('helmet');
-const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
-const { PrismaClient } = require('@prisma/client');
+const prisma = require('./lib/prisma');
+const authRoutes = require('./routes/auth.routes');
+const adminRoutes = require('./routes/admin.routes');
 
 const app = express();
-const prisma = new PrismaClient();
 
 const PORT = process.env.PORT || 3000;
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
 const ROOT_DIR = __dirname;
 const PUBLIC_DIR = path.join(ROOT_DIR, 'public');
 const SITE_DIR = path.join(ROOT_DIR, 'site');
 
+if (IS_PRODUCTION) {
+  // Один доверенный reverse proxy: Nginx.
+  app.set('trust proxy', 1);
+}
+
 app.disable('x-powered-by');
 
 app.use(
   helmet({
+    // CSP настроим отдельным шагом после проверки всех внешних
+    // скриптов, шрифтов и inline-фрагментов текущей вёрстки.
     contentSecurityPolicy: false,
-  })
+  }),
 );
-
-app.use(cors());
 
 app.use(
   express.json({
-    limit: '1mb',
-  })
+    limit: '100kb',
+    strict: true,
+  }),
 );
 
-app.use('/site', express.static(SITE_DIR));
+app.use(cookieParser());
 
+app.use('/site', express.static(SITE_DIR));
 app.use('/public', express.static(PUBLIC_DIR));
 
-// Оставляем также доступ к файлам без /public, чтобы не ломать старые ассеты/проверки.
+// Оставляем доступ к старым путям ассетов без /public.
 app.use(express.static(PUBLIC_DIR));
+
+app.use('/admin/api/auth', authRoutes);
+
+app.use('/admin', adminRoutes);
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(PUBLIC_DIR, 'index.html'));
@@ -54,14 +67,13 @@ app.get('/api/health', (req, res) => {
 
 app.get('/api/blog-posts', async (req, res, next) => {
   try {
-    const status = String(req.query.status || '').toLowerCase();
-    const category = String(req.query.category || '').toLowerCase();
+    const category = String(req.query.category || '')
+      .trim()
+      .toLowerCase();
 
-    const where = {};
-
-    if (status === 'published') {
-      where.isPublished = true;
-    }
+    const where = {
+      isPublished: true,
+    };
 
     if (category && category !== 'all') {
       where.categorySlug = category;
@@ -87,7 +99,6 @@ app.get('/api/blog-posts', async (req, res, next) => {
         coverImage: true,
         publishedAt: true,
         readingTime: true,
-        isPublished: true,
       },
     });
 
@@ -116,25 +127,24 @@ app.get('/api/blog-posts/:slug', async (req, res, next) => {
       });
     }
 
-    res.json({
+    return res.json({
       post,
     });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
 app.get('/api/works', async (req, res, next) => {
   try {
-    const status = String(req.query.status || '').toLowerCase();
-    const category = String(req.query.category || '').toLowerCase();
+    const category = String(req.query.category || '')
+      .trim()
+      .toLowerCase();
     const home = String(req.query.home || '').toLowerCase();
 
-    const where = {};
-
-    if (status === 'published') {
-      where.isPublished = true;
-    }
+    const where = {
+      isPublished: true,
+    };
 
     if (home === 'true') {
       where.showOnHome = true;
@@ -162,17 +172,16 @@ app.get('/api/works', async (req, res, next) => {
         afterImage: true,
         technique: true,
         duration: true,
-        isPublished: true,
         showOnHome: true,
         createdAt: true,
       },
     });
 
-    res.json({
+    return res.json({
       works,
     });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -193,12 +202,18 @@ app.get('/api/works/:slug', async (req, res, next) => {
       });
     }
 
-    res.json({
+    return res.json({
       work,
     });
   } catch (error) {
-    next(error);
+    return next(error);
   }
+});
+
+app.use('/admin/api', (req, res) => {
+  res.status(404).json({
+    message: 'Admin API route not found',
+  });
 });
 
 app.use('/api', (req, res) => {
@@ -214,19 +229,28 @@ app.use((req, res) => {
 app.use((error, req, res, next) => {
   console.error(error);
 
-  res.status(500).json({
+  if (res.headersSent) {
+    return next(error);
+  }
+
+  return res.status(500).json({
     message: 'Server error',
   });
 });
 
-process.on('SIGINT', async () => {
+async function shutdown(signal) {
+  console.log(`${signal}: завершение работы NADIA server`);
+
   await prisma.$disconnect();
   process.exit(0);
+}
+
+process.on('SIGINT', () => {
+  shutdown('SIGINT').catch(() => process.exit(1));
 });
 
-process.on('SIGTERM', async () => {
-  await prisma.$disconnect();
-  process.exit(0);
+process.on('SIGTERM', () => {
+  shutdown('SIGTERM').catch(() => process.exit(1));
 });
 
 app.listen(PORT, () => {
