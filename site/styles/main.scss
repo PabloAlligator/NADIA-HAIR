@@ -21,16 +21,11 @@ $color-text-light: #fff7ef;
 $color-border: rgba(79, 59, 43, 0.14);
 $color-border-light: rgba(255, 247, 239, 0.36);
 
-$gradient-page: linear-gradient(
-  180deg,
-  #f7efe6 0%,
-  #f1e4d4 38%,
-  #e8d7c3 100%
-);
+$gradient-page: linear-gradient(180deg, #f7efe6 0%, #f1e4d4 38%, #e8d7c3 100%);
 
 // TYPOGRAPHY
 
-$font-text: "Manrope", Arial, Helvetica, sans-serif;
+$font-text: 'Manrope', Arial, Helvetica, sans-serif;
 
 $fs-body: 16px;
 
@@ -65,7 +60,7 @@ html {
 }
 
 body {
-   min-width: 320px;
+  min-width: 320px;
   margin: 0;
   // font-family: $font-text;
   font-size: $fs-body;
@@ -704,14 +699,14 @@ body.is-lock {
       rgba(121, 96, 70, 0) 45%,
       rgba(121, 96, 70, 0.35) 66%,
       rgba(121, 96, 70, 0.75) 82%,
-        $color-brown 100%
+      $color-brown 100%
     ),
     linear-gradient(
-  90deg,
-  rgba(79, 59, 43, 0.42) 0%,
-  rgba(121, 96, 70, 0.12) 44%,
-  rgba(79, 59, 43, 0.38) 100%
-),
+      90deg,
+      rgba(79, 59, 43, 0.42) 0%,
+      rgba(121, 96, 70, 0.12) 44%,
+      rgba(79, 59, 43, 0.38) 100%
+    ),
     url('/site/img/main-hero-bg.png') center top / cover no-repeat,
     $color-brown;
 
@@ -889,9 +884,7 @@ body.is-lock {
 
     box-shadow: 0 30px 90px rgba(47, 35, 26, 0.24);
 
-    transform:
-      translate3d(0, var(--card-y), 0)
-      rotate(var(--card-rotate))
+    transform: translate3d(0, var(--card-y), 0) rotate(var(--card-rotate))
       scale(var(--card-scale));
 
     transform-origin: center;
@@ -1010,10 +1003,8 @@ body.is-lock {
     }
 
     &:hover {
-      transform:
-        translate3d(0, calc(var(--card-y) - 10px), 0)
-        rotate(var(--card-rotate))
-        scale(calc(var(--card-scale) + 0.025));
+      transform: translate3d(0, calc(var(--card-y) - 10px), 0)
+        rotate(var(--card-rotate)) scale(calc(var(--card-scale) + 0.025));
 
       box-shadow: 0 42px 120px rgba(47, 35, 26, 0.36);
 
@@ -1043,41 +1034,41 @@ body.is-lock {
   .section-two__card {
     width: min(64vw, 290px);
 
-     &[data-marquee-card='1'] {
-    --card-y: -92px;
-    --card-rotate: -1.4deg;
-    --card-scale: 1.02;
-  }
+    &[data-marquee-card='1'] {
+      --card-y: -92px;
+      --card-rotate: -1.4deg;
+      --card-scale: 1.02;
+    }
 
-  &[data-marquee-card='2'] {
-    --card-y: -58px;
-    --card-rotate: 1.1deg;
-    --card-scale: 1;
-  }
+    &[data-marquee-card='2'] {
+      --card-y: -58px;
+      --card-rotate: 1.1deg;
+      --card-scale: 1;
+    }
 
-  &[data-marquee-card='3'] {
-    --card-y: -24px;
-    --card-rotate: -1deg;
-    --card-scale: 1.03;
-  }
+    &[data-marquee-card='3'] {
+      --card-y: -24px;
+      --card-rotate: -1deg;
+      --card-scale: 1.03;
+    }
 
-  &[data-marquee-card='4'] {
-    --card-y: 14px;
-    --card-rotate: 1.2deg;
-    --card-scale: 0.98;
-  }
+    &[data-marquee-card='4'] {
+      --card-y: 14px;
+      --card-rotate: 1.2deg;
+      --card-scale: 0.98;
+    }
 
-  &[data-marquee-card='5'] {
-    --card-y: 52px;
-    --card-rotate: -1.1deg;
-    --card-scale: 1.01;
-  }
+    &[data-marquee-card='5'] {
+      --card-y: 52px;
+      --card-rotate: -1.1deg;
+      --card-scale: 1.01;
+    }
 
-  &[data-marquee-card='6'] {
-    --card-y: 92px;
-    --card-rotate: 1deg;
-    --card-scale: 0.98;
-  }
+    &[data-marquee-card='6'] {
+      --card-y: 92px;
+      --card-rotate: 1deg;
+      --card-scale: 0.98;
+    }
 
     span {
       font-size: clamp(18px, 5.6vw, 26px);
@@ -1617,8 +1608,12 @@ body.is-lock {
     margin: 0 auto;
     padding: clamp(42px, 4.5vw, 76px);
 
-    background:
-      $color-beige;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.92) 0%,
+      rgba(255, 250, 244, 0.88) 48%,
+      rgba(247, 239, 230, 0.82) 100%
+    );
 
     border: 1px solid rgba(255, 247, 239, 0.38);
     border-radius: 32px;
@@ -1638,8 +1633,16 @@ body.is-lock {
     inset: 0;
 
     background:
-      radial-gradient(circle at 8% 18%, rgba(255, 255, 255, 0.34), transparent 22%),
-      radial-gradient(circle at 90% 16%, rgba(255, 255, 255, 0.2), transparent 22%),
+      radial-gradient(
+        circle at 8% 18%,
+        rgba(255, 255, 255, 0.34),
+        transparent 22%
+      ),
+      radial-gradient(
+        circle at 90% 16%,
+        rgba(255, 255, 255, 0.2),
+        transparent 22%
+      ),
       linear-gradient(
         90deg,
         rgba(255, 255, 255, 0.14),
@@ -1717,7 +1720,7 @@ body.is-lock {
   }
 
   &__button {
-   width: fit-content;
+    width: fit-content;
     margin-top: auto;
     padding: 17px 26px;
 
@@ -1746,8 +1749,11 @@ body.is-lock {
 
   &__button:hover {
     transform: translateY(-3px);
-    background:
-      linear-gradient(135deg, rgba(138, 109, 80, 0.98), rgba(106, 77, 51, 0.98));
+    background: linear-gradient(
+      135deg,
+      rgba(138, 109, 80, 0.98),
+      rgba(106, 77, 51, 0.98)
+    );
 
     box-shadow:
       0 22px 48px rgba(79, 59, 43, 0.24),
@@ -1763,7 +1769,6 @@ body.is-lock {
 .work-card {
   position: relative;
   min-width: 0;
-
 
   &__media {
     margin-bottom: 24px;

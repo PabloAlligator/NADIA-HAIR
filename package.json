@@ -8,7 +8,6 @@
     "start": "node server.js",
     "seed": "node prisma/seed.js",
     "admin:create-owner": "node prisma/create-owner.js",
-
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio"
@@ -23,6 +22,7 @@
     "express-rate-limit": "^8.5.2",
     "helmet": "^8.0.0",
     "multer": "^2.2.0",
+    "nodemailer": "^9.0.3",
     "sanitize-html": "^2.17.5",
     "sharp": "^0.35.3",
     "zod": "^4.4.3"

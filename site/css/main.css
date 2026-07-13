@@ -2,22 +2,16 @@
 .footer {
   position: relative;
   overflow: hidden;
-  padding: 72px 24px 28px;
+  padding: 28px 24px 28px;
   color: #2f231a;
+  background: #796046;
   border-top: 1px solid rgba(79, 59, 43, 0.1);
-}
-.footer::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: #e8d7c3;
-  opacity: 0.95;
 }
 .footer__glass {
   position: relative;
   z-index: 1;
   overflow: hidden;
+  padding: 32px clamp(20px, 4vw, 72px) 28px;
   margin: 0 auto;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 250, 244, 0.88) 48%, rgba(247, 239, 230, 0.82) 100%);
   border: 1px solid rgba(79, 59, 43, 0.11);
@@ -50,7 +44,7 @@
   display: grid;
   grid-template-columns: 1.28fr 0.72fr 0.86fr 1fr;
   gap: clamp(42px, 4vw, 72px);
-  padding: clamp(52px, 5vw, 72px) clamp(54px, 7vw, 112px) clamp(44px, 4vw, 58px);
+  padding: clamp(52px, 5vw, 72px) clamp(36px, 5vw, 80px) clamp(44px, 4vw, 58px);
 }
 .footer__brand {
   max-width: 420px;
@@ -1443,7 +1437,7 @@ body.is-lock {
   overflow: hidden;
   margin: 0 auto;
   padding: clamp(42px, 4.5vw, 76px);
-  background: #e8d7c3;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 250, 244, 0.88) 48%, rgba(247, 239, 230, 0.82) 100%);
   border: 1px solid rgba(255, 247, 239, 0.38);
   border-radius: 32px;
   backdrop-filter: blur(24px) saturate(1.14);

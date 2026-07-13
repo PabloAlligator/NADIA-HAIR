@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactServicesIntro();
   initContactsFlowBackground();
   initContactEquipment();
+  initContactBookingAnimation();
+  initContactBookingForm();
 });
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
@@ -573,4 +575,456 @@ function initSmoothAnchorScroll() {
       scrollToTarget(target, false);
     }, 120);
   }
+}
+
+// BOOKING FORM ANIMATION
+
+function initContactBookingAnimation() {
+  const section = document.querySelector('.js-contact-booking');
+
+  if (!section) return;
+  if (
+    typeof gsap === 'undefined' ||
+    typeof ScrollTrigger === 'undefined'
+  ) {
+    return;
+  }
+
+  const intro = section.querySelector(
+    '.contact-booking__intro',
+  );
+
+  const formSide = section.querySelector(
+    '.contact-booking__form-side',
+  );
+
+  if (!intro || !formSide) return;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.from(intro, {
+    y: 42,
+    opacity: 0,
+    filter: 'blur(10px)',
+    duration: 1,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: section,
+      start: 'top 72%',
+      toggleActions: 'play none none reverse',
+    },
+  });
+
+  gsap.from(formSide, {
+    y: 56,
+    opacity: 0,
+    scale: 0.985,
+    filter: 'blur(10px)',
+    duration: 1.05,
+    delay: 0.08,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: section,
+      start: 'top 68%',
+      toggleActions: 'play none none reverse',
+    },
+  });
+}
+
+// BOOKING FORM
+
+function initContactBookingForm() {
+  const form = document.querySelector(
+    '[data-contact-booking-form]',
+  );
+
+  if (!form) return;
+
+  const nameInput = form.querySelector(
+    '[data-booking-name]',
+  );
+
+  const phoneInput = form.querySelector(
+    '[data-booking-phone]',
+  );
+
+  const serviceInput = form.querySelector(
+    '[data-booking-service]',
+  );
+
+  const messageInput = form.querySelector(
+    '[data-booking-message]',
+  );
+
+  const consentInput = form.querySelector(
+    '[data-booking-consent]',
+  );
+
+  const honeypotInput = form.querySelector(
+    '[data-booking-honeypot]',
+  );
+
+  const submitButton = form.querySelector(
+    '[data-booking-submit]',
+  );
+
+  const submitText = form.querySelector(
+    '[data-booking-submit-text]',
+  );
+
+  const loader = form.querySelector(
+    '[data-booking-loader]',
+  );
+
+  const status = form.querySelector(
+    '[data-booking-status]',
+  );
+
+  const counter = form.querySelector(
+    '[data-booking-counter]',
+  );
+
+  const success = document.querySelector(
+    '[data-booking-success]',
+  );
+
+  const newRequestButton = document.querySelector(
+    '[data-booking-new-request]',
+  );
+
+  if (
+    !nameInput ||
+    !phoneInput ||
+    !serviceInput ||
+    !messageInput ||
+    !consentInput ||
+    !submitButton ||
+    !status
+  ) {
+    return;
+  }
+
+  phoneInput.addEventListener('input', () => {
+    phoneInput.value = formatRussianPhone(
+      phoneInput.value,
+    );
+
+    clearFieldError('phone', phoneInput);
+  });
+
+  nameInput.addEventListener('input', () => {
+    clearFieldError('name', nameInput);
+  });
+
+  serviceInput.addEventListener('change', () => {
+    clearFieldError('service', serviceInput);
+  });
+
+  consentInput.addEventListener('change', () => {
+    clearFieldError('consent');
+  });
+
+  messageInput.addEventListener('input', () => {
+    if (counter) {
+      counter.textContent =
+        `${messageInput.value.length} / 1000`;
+    }
+  });
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    clearAllErrors();
+    hideBookingStatus(status);
+
+    const payload = {
+      name: nameInput.value.trim(),
+      phone: normalizeRussianPhone(phoneInput.value),
+      service: serviceInput.value,
+      message: messageInput.value.trim(),
+      source: 'contacts-page',
+      company: honeypotInput?.value || '',
+      consentAccepted: consentInput.checked,
+    };
+
+    const isValid = validateBookingForm(payload);
+
+    if (!isValid) {
+      const firstInvalidField = form.querySelector(
+        '.is-invalid',
+      );
+
+      firstInvalidField?.focus();
+      return;
+    }
+
+    setBookingLoading(true);
+
+    try {
+      const response = await fetch('/api/leads', {
+        method: 'POST',
+        credentials: 'same-origin',
+        cache: 'no-store',
+
+        headers: {
+          'Content-Type': 'application/json',
+        },
+
+        body: JSON.stringify(payload),
+      });
+
+      let data = null;
+
+      const contentType =
+        response.headers.get('content-type') || '';
+
+      if (contentType.includes('application/json')) {
+        data = await response.json();
+      }
+
+      if (!response.ok) {
+        if (response.status === 429) {
+          showBookingStatus(
+            status,
+            'Слишком много попыток. Подождите немного и попробуйте снова.',
+          );
+
+          return;
+        }
+
+        showBookingStatus(
+          status,
+          data?.message ||
+            'Не удалось отправить заявку. Попробуйте ещё раз или позвоните нам.',
+        );
+
+        return;
+      }
+
+      form.reset();
+
+      phoneInput.value = '';
+
+      if (counter) {
+        counter.textContent = '0 / 1000';
+      }
+
+      form.hidden = true;
+
+      if (success) {
+        success.hidden = false;
+        success.focus?.();
+      }
+    } catch (error) {
+      console.error('Ошибка отправки заявки:', error);
+
+      showBookingStatus(
+        status,
+        'Не удалось связаться с сервером. Попробуйте ещё раз или позвоните нам.',
+      );
+    } finally {
+      setBookingLoading(false);
+    }
+  });
+
+  newRequestButton?.addEventListener('click', () => {
+    if (success) {
+      success.hidden = true;
+    }
+
+    form.hidden = false;
+    hideBookingStatus(status);
+
+    nameInput.focus();
+  });
+
+  function validateBookingForm(payload) {
+    let isValid = true;
+
+    if (
+      payload.name.length < 2 ||
+      payload.name.length > 80
+    ) {
+      setFieldError(
+        'name',
+        'Введите имя от 2 до 80 символов.',
+        nameInput,
+      );
+
+      isValid = false;
+    }
+
+    const phoneDigits = payload.phone.replace(/\D/g, '');
+
+    if (
+      phoneDigits.length !== 11 ||
+      phoneDigits[0] !== '7'
+    ) {
+      setFieldError(
+        'phone',
+        'Введите корректный номер телефона.',
+        phoneInput,
+      );
+
+      isValid = false;
+    }
+
+    if (!payload.service) {
+      setFieldError(
+        'service',
+        'Выберите интересующую услугу.',
+        serviceInput,
+      );
+
+      isValid = false;
+    }
+
+    if (!payload.consentAccepted) {
+      setFieldError(
+        'consent',
+        'Необходимо согласие на обработку персональных данных.',
+      );
+
+      isValid = false;
+    }
+
+    return isValid;
+  }
+
+  function setBookingLoading(isLoading) {
+    submitButton.disabled = isLoading;
+
+    submitButton.setAttribute(
+      'aria-busy',
+      String(isLoading),
+    );
+
+    if (submitText) {
+      submitText.textContent = isLoading
+        ? 'Отправляем…'
+        : 'Отправить заявку';
+    }
+
+    if (loader) {
+      loader.hidden = !isLoading;
+    }
+  }
+
+  function setFieldError(
+    fieldName,
+    message,
+    input = null,
+  ) {
+    const error = form.querySelector(
+      `[data-booking-error="${fieldName}"]`,
+    );
+
+    if (error) {
+      error.textContent = message;
+    }
+
+    input?.classList.add('is-invalid');
+    input?.setAttribute('aria-invalid', 'true');
+  }
+
+  function clearFieldError(
+    fieldName,
+    input = null,
+  ) {
+    const error = form.querySelector(
+      `[data-booking-error="${fieldName}"]`,
+    );
+
+    if (error) {
+      error.textContent = '';
+    }
+
+    input?.classList.remove('is-invalid');
+    input?.removeAttribute('aria-invalid');
+  }
+
+  function clearAllErrors() {
+    form
+      .querySelectorAll('[data-booking-error]')
+      .forEach((element) => {
+        element.textContent = '';
+      });
+
+    form
+      .querySelectorAll('.is-invalid')
+      .forEach((element) => {
+        element.classList.remove('is-invalid');
+        element.removeAttribute('aria-invalid');
+      });
+  }
+}
+
+function formatRussianPhone(value) {
+  let digits = String(value || '').replace(/\D/g, '');
+
+  if (!digits) {
+    return '';
+  }
+
+  if (digits.startsWith('8')) {
+    digits = `7${digits.slice(1)}`;
+  }
+
+  if (!digits.startsWith('7')) {
+    digits = `7${digits}`;
+  }
+
+  digits = digits.slice(0, 11);
+
+  const body = digits.slice(1);
+
+  let result = '+7';
+
+  if (body.length > 0) {
+    result += ` (${body.slice(0, 3)}`;
+  }
+
+  if (body.length >= 3) {
+    result += ')';
+  }
+
+  if (body.length > 3) {
+    result += ` ${body.slice(3, 6)}`;
+  }
+
+  if (body.length > 6) {
+    result += `-${body.slice(6, 8)}`;
+  }
+
+  if (body.length > 8) {
+    result += `-${body.slice(8, 10)}`;
+  }
+
+  return result;
+}
+
+function normalizeRussianPhone(value) {
+  let digits = String(value || '').replace(/\D/g, '');
+
+  if (digits.startsWith('8')) {
+    digits = `7${digits.slice(1)}`;
+  }
+
+  if (digits.length === 10) {
+    digits = `7${digits}`;
+  }
+
+  return digits ? `+${digits.slice(0, 11)}` : '';
+}
+
+function showBookingStatus(element, message) {
+  element.textContent = message;
+  element.hidden = false;
+  element.classList.remove('is-success');
+}
+
+function hideBookingStatus(element) {
+  element.textContent = '';
+  element.hidden = true;
+  element.classList.remove('is-success');
 }

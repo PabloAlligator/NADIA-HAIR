@@ -1,41 +1,47 @@
 $color-beige: #e8d7c3;
+$color-brown: #796046;
 
 .footer {
   position: relative;
   overflow: hidden;
 
-  padding: 72px 24px 28px;
+  padding: 28px 24px 28px;
 
   color: #2f231a;
-  // background: #e8d7c3;
+  background: $color-brown;
 
   border-top: 1px solid rgba(79, 59, 43, 0.1);
 
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
+  // &::before {
+  //   content: '';
+  //   position: absolute;
+  //   inset: 0;
+  //   pointer-events: none;
 
-    background: $color-beige;
-    // background:
-    //   linear-gradient(
-    //     180deg,
-    //     rgba(255, 255, 255, 0.72) 0%,
-    //     rgba(255, 255, 255, 0.18) 44%,
-    //     rgba(241, 228, 212, 0.34) 100%
-    //   ),
-    //   radial-gradient(circle at 18% 80%, rgba(121, 96, 70, 0.06), transparent 30%),
-    //   radial-gradient(circle at 78% 76%, rgba(121, 96, 70, 0.05), transparent 28%);
+  //   // background: $color-brown;
+  //   // background: red;
+  //   // background:
+  //   //   linear-gradient(
+  //   //     180deg,
+  //   //     rgba(255, 255, 255, 0.72) 0%,
+  //   //     rgba(255, 255, 255, 0.18) 44%,
+  //   //     rgba(241, 228, 212, 0.34) 100%
+  //   //   ),
+  //   //   radial-gradient(circle at 18% 80%, rgba(121, 96, 70, 0.06), transparent 30%),
+  //   //   radial-gradient(circle at 78% 76%, rgba(121, 96, 70, 0.05), transparent 28%);
 
-    opacity: 0.95;
-  }
+  //   opacity: 0.95;
+  // }
 
   &__glass {
     position: relative;
     z-index: 1;
     overflow: hidden;
 
+    padding:
+    32px
+    clamp(20px, 4vw, 72px)
+    28px;
     margin: 0 auto;
 
     background:
@@ -98,7 +104,10 @@ $color-beige: #e8d7c3;
     grid-template-columns: 1.28fr 0.72fr 0.86fr 1fr;
     gap: clamp(42px, 4vw, 72px);
 
-    padding: clamp(52px, 5vw, 72px) clamp(54px, 7vw, 112px) clamp(44px, 4vw, 58px);
+    padding:
+    clamp(52px, 5vw, 72px)
+    clamp(36px, 5vw, 80px)
+    clamp(44px, 4vw, 58px);
   }
 
   &__brand {

@@ -286,10 +286,270 @@
             </div>
           </div>
         </section>
+
+        <section
+          class="contact-booking js-contact-booking"
+          id="contact-form"
+          aria-labelledby="contact-booking-title"
+        >
+          <div class="contact-booking__inner">
+            <div class="contact-booking__intro">
+              <p class="contact-booking__number">004</p>
+
+              <div class="contact-booking__content">
+                <p class="contact-booking__eyebrow">Запись на консультацию</p>
+
+                <h2 class="contact-booking__title" id="contact-booking-title">
+                  Давайте обсудим<br />
+                  ваш будущий образ
+                </h2>
+
+                <p class="contact-booking__text">
+                  Оставьте номер телефона. Мы свяжемся с вами, уточним состояние
+                  волос, историю окрашиваний и поможем выбрать подходящую
+                  процедуру.
+                </p>
+              </div>
+
+              <div class="contact-booking__contacts">
+                <div class="contact-booking__contact">
+                  <span>Телефон</span>
+
+                  <a href="tel:+79235853333"> +7 (923) 585-33-33 </a>
+                </div>
+
+                <div class="contact-booking__contact">
+                  <span>Город</span>
+
+                  <p>Абакан</p>
+                </div>
+
+                <div class="contact-booking__contact">
+                  <span>Формат</span>
+
+                  <p>По предварительной записи</p>
+                </div>
+              </div>
+
+              <p class="contact-booking__note">
+                Ответим на вопросы и подберём решение без спешки и навязанных
+                процедур.
+              </p>
+            </div>
+
+            <div class="contact-booking__form-side">
+              <div class="contact-booking__form-head">
+                <p class="contact-booking__form-caption">NADIA HAIR</p>
+
+                <h3 class="contact-booking__form-title">Оставить заявку</h3>
+
+                <p class="contact-booking__form-text">
+                  Заполните несколько полей — остальное обсудим лично.
+                </p>
+              </div>
+
+              <form
+                class="contact-booking__form"
+                data-contact-booking-form
+                novalidate
+              >
+                <div class="contact-booking__trap" aria-hidden="true">
+                  <label for="booking-company"> Название компании </label>
+
+                  <input
+                    id="booking-company"
+                    name="company"
+                    type="text"
+                    tabindex="-1"
+                    autocomplete="off"
+                    data-booking-honeypot
+                  />
+                </div>
+
+                <input type="hidden" name="source" value="contacts-page" />
+
+                <div class="contact-booking__field">
+                  <label class="contact-booking__label" for="booking-name">
+                    Ваше имя
+                  </label>
+
+                  <input
+                    class="contact-booking__input"
+                    id="booking-name"
+                    name="name"
+                    type="text"
+                    autocomplete="name"
+                    minlength="2"
+                    maxlength="80"
+                    placeholder="Как к вам обращаться?"
+                    required
+                    data-booking-name
+                  />
+
+                  <span
+                    class="contact-booking__error"
+                    data-booking-error="name"
+                  ></span>
+                </div>
+
+                <div class="contact-booking__field">
+                  <label class="contact-booking__label" for="booking-phone">
+                    Номер телефона
+                  </label>
+
+                  <input
+                    class="contact-booking__input"
+                    id="booking-phone"
+                    name="phone"
+                    type="tel"
+                    inputmode="tel"
+                    autocomplete="tel"
+                    maxlength="18"
+                    placeholder="+7 (___) ___-__-__"
+                    required
+                    data-booking-phone
+                  />
+
+                  <span
+                    class="contact-booking__error"
+                    data-booking-error="phone"
+                  ></span>
+                </div>
+
+                <div class="contact-booking__field">
+                  <label class="contact-booking__label" for="booking-service">
+                    Что вас интересует?
+                  </label>
+
+                  <select
+                    class="contact-booking__input contact-booking__select"
+                    id="booking-service"
+                    name="service"
+                    required
+                    data-booking-service
+                  >
+                    <option value="">Выберите услугу</option>
+
+                    <option value="Консультация">Нужна консультация</option>
+
+                    <option value="AirTouch">AirTouch</option>
+
+                    <option value="Тотал блонд">Тотал блонд</option>
+
+                    <option value="Тонирование">Тонирование</option>
+
+                    <option value="Работа с сединой">Работа с сединой</option>
+
+                    <option value="Уход и восстановление">
+                      Уход и восстановление
+                    </option>
+
+                    <option value="Другая услуга">Другая услуга</option>
+                  </select>
+
+                  <span
+                    class="contact-booking__error"
+                    data-booking-error="service"
+                  ></span>
+                </div>
+
+                <div class="contact-booking__field">
+                  <label class="contact-booking__label" for="booking-message">
+                    Комментарий
+                    <span>необязательно</span>
+                  </label>
+
+                  <textarea
+                    class="contact-booking__input contact-booking__textarea"
+                    id="booking-message"
+                    name="message"
+                    maxlength="1000"
+                    rows="4"
+                    placeholder="Расскажите коротко о желаемом результате"
+                    data-booking-message
+                  ></textarea>
+
+                  <span class="contact-booking__counter" data-booking-counter>
+                    0 / 1000
+                  </span>
+                </div>
+
+                <label class="contact-booking__consent">
+                  <input
+                    class="contact-booking__checkbox"
+                    type="checkbox"
+                    name="consentAccepted"
+                    required
+                    data-booking-consent
+                  />
+
+                  <span class="contact-booking__checkmark"></span>
+
+                  <span class="contact-booking__consent-text">
+                    Я соглашаюсь на обработку персональных данных и принимаю
+                    <a href="/public/privacy-policy.html">
+                      политику конфиденциальности
+                    </a>
+                  </span>
+                </label>
+
+                <span
+                  class="contact-booking__error contact-booking__error--consent"
+                  data-booking-error="consent"
+                ></span>
+
+                <div
+                  class="contact-booking__status"
+                  role="status"
+                  aria-live="polite"
+                  hidden
+                  data-booking-status
+                ></div>
+
+                <button
+                  class="contact-booking__submit"
+                  type="submit"
+                  data-booking-submit
+                >
+                  <span data-booking-submit-text> Отправить заявку </span>
+
+                  <span
+                    class="contact-booking__loader"
+                    aria-hidden="true"
+                    hidden
+                    data-booking-loader
+                  ></span>
+                </button>
+              </form>
+
+              <div
+                class="contact-booking__success"
+                role="status"
+                aria-live="polite"
+                tabindex="-1"
+                hidden
+                data-booking-success
+              >
+                <span class="contact-booking__success-number"> Спасибо </span>
+
+                <h3>Заявка отправлена</h3>
+
+                <p>
+                  Мы свяжемся с вами в ближайшее время, уточним детали и
+                  подберём подходящий вариант.
+                </p>
+
+                <button type="button" data-booking-new-request>
+                  Отправить ещё одну заявку
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </main>
 
-    <footer class="footer glass">
+    <footer class="footer">
       <div class="footer__glass">
         <div class="footer__top">
           <div class="footer__brand">

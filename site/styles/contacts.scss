@@ -18,6 +18,9 @@ $color-text-muted: #8d725d;
 $color-text-dark: #18120e;
 $color-text-light: #fff7ef;
 
+$contact-error: #9d4242;
+$contact-success: #4e7057;
+
 $color-border: rgba(79, 59, 43, 0.14);
 $color-border-light: rgba(255, 247, 239, 0.36);
 
@@ -1079,19 +1082,12 @@ body.is-lock {
 }
 
 .contacts-flow {
-  --contacts-scene-bg: #796046;
+  --contacts-scene-bg: #{$color-brown};
 
   position: relative;
   overflow: hidden;
 
-  background: var(--contacts-scene-bg);
-
-  .contact-services-intro,
-  .contact-appointment {
-    position: relative;
-    z-index: 1;
-    background: transparent;
-  }
+  background-color: var(--contacts-scene-bg);
 }
 
 // интро
@@ -1476,7 +1472,7 @@ body.is-lock {
   overflow: hidden;
 
   min-height: 100svh;
-  padding: clamp(96px, 10vw, 160px) clamp(18px, 4vw, 72px);
+  padding: clamp(46px, 5vw, 80px) clamp(18px, 4vw, 72px);
 
   font-family: $font-title;
   background: transparent;
@@ -1740,6 +1736,885 @@ body.is-lock {
     &__body p {
       margin-top: 16px;
       font-size: 14px;
+    }
+  }
+}
+
+/* CONTACT BOOKING */
+
+.contact-booking {
+  position: relative;
+  overflow: hidden;
+
+  color: $color-text;
+  background: transparent;
+
+  &__inner {
+    display: grid;
+    grid-template-columns:
+      minmax(0, 0.9fr)
+      minmax(500px, 1.1fr);
+    align-items: center;
+    gap: clamp(56px, 7vw, 132px);
+
+    width: min(100%, 1720px);
+    margin: 0 auto;
+
+    padding: clamp(46px, 5vw, 80px) clamp(18px, 4vw, 72px);
+  }
+
+  /* ЛЕВАЯ ЧАСТЬ */
+
+  &__intro {
+    min-width: 0;
+  }
+
+  &__number,
+  &__eyebrow {
+    margin: 0;
+
+    color: rgba($color-brown, 0.72);
+
+    font-family: $font-text;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  &__content {
+    margin-top: clamp(64px, 7vw, 112px);
+  }
+
+  &__eyebrow {
+    margin-bottom: 22px;
+  }
+
+  &__title {
+    max-width: 760px;
+    margin: 0;
+
+    color: $color-text;
+
+    font-family: $font-title;
+    font-size: clamp(52px, 5.4vw, 92px);
+    font-weight: 300;
+    line-height: 0.98;
+    letter-spacing: -0.06em;
+  }
+
+  &__text {
+    max-width: 620px;
+    margin: 32px 0 0;
+
+    color: rgba($color-text, 0.7);
+
+    font-family: $font-text;
+    font-size: clamp(14px, 1vw, 16px);
+    font-weight: 400;
+    line-height: 1.8;
+  }
+
+  &__contacts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+
+    margin-top: clamp(58px, 7vw, 92px);
+  }
+
+  &__contact {
+    min-width: 0;
+    padding-top: 18px;
+
+    border-top: 1px solid rgba($color-brown-dark, 0.18);
+
+    span {
+      display: block;
+      margin-bottom: 10px;
+
+      color: rgba($color-text, 0.48);
+
+      font-family: $font-text;
+      font-size: 10px;
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    a,
+    p {
+      margin: 0;
+
+      color: $color-text;
+
+      font-family: $font-text;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.55;
+    }
+
+    a {
+      display: inline-block;
+
+      transition:
+        color $transition-base,
+        transform $transition-base;
+
+      &:hover {
+        color: $color-brown;
+        transform: translateX(3px);
+      }
+    }
+  }
+
+  &__note {
+    max-width: 520px;
+    margin: 34px 0 0;
+
+    color: rgba($color-text, 0.52);
+
+    font-family: $font-text;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.7;
+  }
+
+  /* КОРИЧНЕВЫЙ БЛОК ФОРМЫ */
+
+  &__form-side {
+    min-width: 0;
+
+    padding: clamp(44px, 4.3vw, 68px) clamp(30px, 4vw, 60px);
+
+    color: $color-text-light;
+
+    border: 1px solid rgba($color-text-light, 0.18);
+    border-radius: 30px;
+
+    background: $color-brown;
+
+    box-shadow: 0 28px 80px rgba($color-brown-deep, 0.16);
+  }
+
+  &__form-head {
+    max-width: 540px;
+  }
+
+  &__form-title {
+    margin: 0;
+
+    color: $color-text-light;
+
+    font-family: $font-title;
+    font-size: clamp(40px, 3.4vw, 60px);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.055em;
+  }
+
+  &__form-text {
+    max-width: 470px;
+    margin: 18px 0 0;
+
+    color: rgba($color-text-light, 0.72);
+
+    font-family: $font-text;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.7;
+  }
+
+  &__form {
+    display: grid;
+    gap: 20px;
+
+    margin-top: 40px;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  /* СКРЫТОЕ АНТИБОТ-ПОЛЕ */
+
+  &__trap {
+    position: absolute;
+    left: -10000px;
+
+    width: 1px;
+    height: 1px;
+
+    overflow: hidden;
+  }
+
+  /* ПОЛЯ */
+
+  &__field {
+    position: relative;
+
+    display: grid;
+    gap: 8px;
+  }
+
+  &__label {
+    color: $color-text-light;
+
+    font-family: $font-text;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.4;
+
+    span {
+      color: rgba($color-text-light, 0.58);
+      font-weight: 400;
+    }
+  }
+
+  &__input {
+    width: 100%;
+    min-height: 58px;
+    padding: 0 18px;
+
+    color: $color-text;
+
+    border: 1px solid rgba($color-text-light, 0.36);
+    border-radius: 14px;
+    outline: none;
+
+    background: $color-cream;
+
+    font-family: $font-text;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+
+    transition:
+      border-color $transition-base,
+      background-color $transition-base,
+      box-shadow $transition-base;
+
+    &::placeholder {
+      color: rgba($color-text, 0.42);
+    }
+
+    &:hover {
+      border-color: rgba($color-text-light, 0.72);
+    }
+
+    &:focus {
+      border-color: $color-text-light;
+      background: $color-text-light;
+
+      box-shadow: 0 0 0 3px rgba($color-text-light, 0.16);
+    }
+
+    &.is-invalid {
+      border-color: $contact-error;
+
+      box-shadow: 0 0 0 3px rgba($contact-error, 0.12);
+    }
+
+    &:disabled {
+      opacity: 0.62;
+      cursor: not-allowed;
+    }
+  }
+
+  &__select {
+    appearance: none;
+
+    padding-right: 50px;
+
+    cursor: pointer;
+
+    background-image:
+      linear-gradient(45deg, transparent 50%, $color-brown 50%),
+      linear-gradient(135deg, $color-brown 50%, transparent 50%);
+
+    background-position:
+      calc(100% - 22px) 26px,
+      calc(100% - 17px) 26px;
+
+    background-size: 5px 5px;
+    background-repeat: no-repeat;
+
+    option {
+      color: $color-text;
+      background: $color-cream;
+    }
+  }
+
+  &__textarea {
+    min-height: 132px;
+    padding-top: 16px;
+    padding-bottom: 36px;
+
+    resize: vertical;
+
+    line-height: 1.65;
+  }
+
+  &__counter {
+    position: absolute;
+    right: 15px;
+    bottom: 12px;
+
+    color: rgba($color-text, 0.44);
+
+    font-family: $font-text;
+    font-size: 10px;
+    line-height: 1;
+  }
+
+  /* ОШИБКИ */
+
+  &__error {
+    display: block;
+
+    min-height: 15px;
+
+    color: $color-cream;
+
+    font-family: $font-text;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.4;
+
+    &--consent {
+      margin-top: -10px;
+    }
+
+    &:empty {
+      visibility: hidden;
+    }
+  }
+
+  /* СОГЛАСИЕ */
+
+  &__consent {
+    position: relative;
+
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr);
+    gap: 13px;
+    align-items: flex-start;
+
+    cursor: pointer;
+  }
+
+  &__checkbox {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    opacity: 0;
+    pointer-events: none;
+
+    &:focus-visible + .contact-booking__checkmark {
+      box-shadow: 0 0 0 4px rgba($color-text-light, 0.18);
+    }
+
+    &:checked + .contact-booking__checkmark {
+      border-color: $color-text-light;
+      background: $color-text-light;
+
+      &::after {
+        opacity: 1;
+        transform: rotate(45deg) scale(1);
+      }
+    }
+  }
+
+  &__checkmark {
+    position: relative;
+
+    width: 22px;
+    height: 22px;
+
+    border: 1px solid rgba($color-text-light, 0.56);
+    border-radius: 6px;
+
+    background: transparent;
+
+    transition:
+      border-color $transition-base,
+      background-color $transition-base,
+      box-shadow $transition-base;
+
+    &::after {
+      position: absolute;
+      top: 3px;
+      left: 7px;
+
+      width: 5px;
+      height: 10px;
+
+      content: '';
+
+      border-right: 1.5px solid $color-brown;
+      border-bottom: 1.5px solid $color-brown;
+
+      opacity: 0;
+
+      transform: rotate(45deg) scale(0.7);
+
+      transition:
+        opacity $transition-base,
+        transform $transition-base;
+    }
+  }
+
+  &__consent-text {
+    color: rgba($color-text-light, 0.72);
+
+    font-family: $font-text;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.65;
+
+    a {
+      color: $color-text-light;
+
+      text-decoration: underline;
+      text-decoration-color: rgba($color-text-light, 0.48);
+      text-underline-offset: 3px;
+
+      transition: opacity $transition-base;
+
+      &:hover {
+        opacity: 0.72;
+      }
+    }
+  }
+
+  /* СТАТУС ОТПРАВКИ */
+
+  &__status {
+    padding: 14px 16px;
+
+    color: $color-text-light;
+
+    border: 1px solid rgba($color-text-light, 0.28);
+    border-radius: 12px;
+
+    background: rgba($color-brown-deep, 0.22);
+
+    font-family: $font-text;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.55;
+
+    &[hidden] {
+      display: none;
+    }
+
+    &.is-success {
+      color: $color-text-light;
+
+      border-color: rgba($color-text-light, 0.38);
+
+      background: rgba($contact-success, 0.26);
+    }
+  }
+
+  &__submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    width: 100%;
+    min-height: 56px;
+    padding: 0 26px;
+
+    color: $color-brown;
+
+    border: 1px solid rgba($color-text-light, 0.24);
+    border-radius: 8px;
+
+    background: $color-text-light;
+
+    font-family: $font-text;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+      transform 0.35s ease,
+      background 0.35s ease,
+      color 0.35s ease,
+      border-color 0.35s ease,
+      opacity 0.35s ease;
+
+    &:hover:not(:disabled) {
+      color: $color-text-light;
+
+      border-color: $color-text-dark;
+
+      background: $color-text-dark;
+
+      transform: translateY(-3px);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-text-light;
+      outline-offset: 4px;
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    &:disabled {
+      opacity: 0.62;
+      cursor: wait;
+    }
+  }
+
+  &__loader {
+    width: 17px;
+    height: 17px;
+
+    color: inherit;
+
+    border: 2px solid rgba($color-brown, 0.3);
+    border-top-color: currentColor;
+    border-radius: 50%;
+
+    animation: contact-booking-spin 0.7s linear infinite;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  /* УСПЕШНАЯ ОТПРАВКА */
+
+  &__success {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    min-height: 520px;
+
+    color: $color-text-light;
+    outline: none;
+
+    &[hidden] {
+      display: none;
+    }
+
+    &-number {
+      color: rgba($color-text-light, 0.68);
+
+      font-family: $font-text;
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    h3 {
+      max-width: 520px;
+      margin: 24px 0 0;
+
+      color: $color-text-light;
+
+      font-family: $font-title;
+      font-size: clamp(40px, 3.5vw, 62px);
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -0.055em;
+    }
+
+    p {
+      max-width: 470px;
+      margin: 26px 0 0;
+
+      color: rgba($color-text-light, 0.72);
+
+      font-family: $font-text;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.75;
+    }
+
+    button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      align-self: flex-start;
+
+      min-height: 52px;
+      margin-top: 38px;
+      padding: 0 26px;
+
+      color: $color-brown;
+
+      // border: 1px solid rgba($color-text-light, 0.24);
+      border-radius: 8px;
+
+      background: $color-text-light;
+
+      font-family: $font-text;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+
+      cursor: pointer;
+
+      transition:
+        transform 0.35s ease,
+        background 0.35s ease,
+        color 0.35s ease,
+        border-color 0.35s ease;
+
+      &:hover {
+        color: $color-text-light;
+        border-color: $color-text-dark;
+        background: $color-text-dark;
+        transform: translateY(-3px);
+      }
+
+      &:focus-visible {
+        outline: 2px solid $color-text-light;
+        outline-offset: 4px;
+      }
+    }
+  }
+}
+
+@keyframes contact-booking-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* НОУТБУКИ */
+
+@media (max-width: 1280px) {
+  .contact-booking {
+    &__inner {
+      grid-template-columns:
+        minmax(0, 0.84fr)
+        minmax(450px, 1.16fr);
+
+      gap: 54px;
+
+      padding-right: 48px;
+      padding-left: 48px;
+    }
+
+    &__title {
+      font-size: clamp(48px, 5.2vw, 74px);
+    }
+
+    &__contacts {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+}
+
+/* ПЛАНШЕТЫ */
+
+@media (max-width: 960px) {
+  .contact-booking {
+    &__inner {
+      grid-template-columns: 1fr;
+      gap: 64px;
+
+      padding: 110px 36px 120px;
+    }
+
+    &__content {
+      margin-top: 58px;
+    }
+
+    &__title {
+      max-width: 760px;
+
+      font-size: clamp(48px, 8vw, 76px);
+    }
+
+    &__text {
+      max-width: 650px;
+    }
+
+    &__contacts {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+
+      margin-top: 58px;
+    }
+
+    &__form-side {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+  }
+}
+
+/* ТЕЛЕФОНЫ */
+
+@media (max-width: 640px) {
+  .contact-booking {
+    &__inner {
+      gap: 48px;
+
+      padding: 82px 18px 88px;
+    }
+
+    &__content {
+      margin-top: 42px;
+    }
+
+    &__number,
+    &__eyebrow {
+      font-size: 10px;
+    }
+
+    &__eyebrow {
+      margin-bottom: 18px;
+    }
+
+    &__title {
+      font-size: clamp(40px, 11.5vw, 54px);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+
+      br {
+        display: none;
+      }
+    }
+
+    &__text {
+      margin-top: 24px;
+
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    &__contacts {
+      grid-template-columns: 1fr;
+      gap: 16px;
+
+      margin-top: 44px;
+    }
+
+    &__contact {
+      padding-top: 15px;
+
+      a,
+      p {
+        font-size: 13px;
+      }
+    }
+
+    &__note {
+      margin-top: 28px;
+    }
+
+    &__form-side {
+      padding: 36px 20px;
+
+      border-radius: 24px;
+    }
+
+    &__form-title {
+      font-size: clamp(36px, 10.5vw, 48px);
+    }
+
+    &__form-text {
+      margin-top: 17px;
+
+      font-size: 12px;
+    }
+
+    &__form {
+      gap: 19px;
+
+      margin-top: 34px;
+    }
+
+    &__input,
+    &__submit {
+      min-height: 56px;
+    }
+
+    &__input {
+      padding-right: 15px;
+      padding-left: 15px;
+
+      font-size: 13px;
+    }
+
+    &__select {
+      padding-right: 46px;
+
+      background-position:
+        calc(100% - 21px) 25px,
+        calc(100% - 16px) 25px;
+    }
+
+    &__textarea {
+      min-height: 120px;
+      padding-top: 15px;
+    }
+
+    &__consent-text {
+      font-size: 10px;
+    }
+
+    &__success {
+      min-height: 430px;
+
+      h3 {
+        font-size: clamp(38px, 11vw, 50px);
+      }
+
+      p {
+        font-size: 13px;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}
+
+/* ОЧЕНЬ МАЛЕНЬКИЕ ТЕЛЕФОНЫ */
+
+@media (max-width: 375px) {
+  .contact-booking {
+    &__inner {
+      padding-right: 14px;
+      padding-left: 14px;
+    }
+
+    &__form-side {
+      padding-right: 17px;
+      padding-left: 17px;
+    }
+
+    &__title {
+      font-size: 38px;
+    }
+
+    &__form-title {
+      font-size: 35px;
     }
   }
 }
