@@ -416,6 +416,91 @@ router.patch(
   },
 );
 
+// удаление заявки
+
+router.delete(
+  '/api/leads/:id',
+  validateOrigin,
+  requireAuth,
+  requireRole('OWNER'),
+  requireCsrf,
+  async (req, res, next) => {
+    try {
+      const parsedId = leadIdSchema.safeParse(
+        req.params.id,
+      );
+
+      if (!parsedId.success) {
+        return res.status(400).json({
+          message: 'Некорректный ID заявки',
+        });
+      }
+
+      const leadId = parsedId.data;
+
+      const lead = await prisma.lead.findUnique({
+        where: {
+          id: leadId,
+        },
+
+        select: {
+          id: true,
+          status: true,
+          service: true,
+          source: true,
+          assignedToId: true,
+          createdAt: true,
+        },
+      });
+
+      if (!lead) {
+        return res.status(404).json({
+          message: 'Заявка не найдена',
+        });
+      }
+
+      const metadata =
+        getRequestMetadata(req);
+
+      await prisma.$transaction([
+        prisma.adminAuditLog.create({
+          data: {
+            userId: req.auth.user.id,
+
+            action: 'LEAD_DELETED',
+
+            entityType: 'Lead',
+            entityId: String(lead.id),
+
+            details: JSON.stringify({
+              status: lead.status,
+              service: lead.service,
+              source: lead.source,
+              assignedToId:
+                lead.assignedToId,
+              createdAt:
+                lead.createdAt.toISOString(),
+            }),
+
+            ipAddress: metadata.ipAddress,
+            userAgent: metadata.userAgent,
+          },
+        }),
+
+        prisma.lead.delete({
+          where: {
+            id: leadId,
+          },
+        }),
+      ]);
+
+      return res.status(204).send();
+    } catch (error) {
+      return next(error);
+    }
+  },
+);
+
 // корень админки
 
 router.get('/', (req, res) => {

@@ -1138,6 +1138,36 @@ a {
 .admin-request-card__save-status.is-error {
   color: #9c3f3f;
 }
+.admin-request-card__delete {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  margin-left: auto;
+  padding: 0 16px;
+  border: 1px solid rgba(156, 63, 63, 0.24);
+  border-radius: 999px;
+  color: #9c3f3f;
+  background: transparent;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+}
+.admin-request-card__delete:hover:not(:disabled) {
+  color: #fff;
+  border-color: #9c3f3f;
+  background: #9c3f3f;
+  transform: translateY(-1px);
+}
+.admin-request-card__delete:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+.admin-request-card__delete:focus-visible {
+  outline: 2px solid rgba(156, 63, 63, 0.3);
+  outline-offset: 3px;
+}
 
 @media (max-width: 1180px) {
   .admin-requests__stats {
@@ -1224,6 +1254,10 @@ a {
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 12px;
     padding: 18px;
+  }
+  .admin-request-card__delete {
+    width: 100%;
+    margin-left: 0;
   }
   .admin-request-card__status {
     justify-self: end;

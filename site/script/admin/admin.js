@@ -216,7 +216,7 @@
       bindLogout();
 
       if (page === 'requests') {
-        await initRequestsPage();
+        await initRequestsPage(data.user);
       }
     } catch (error) {
       console.error('Ошибка инициализации админ-панели:', error);
@@ -286,7 +286,8 @@
 
   // заявки
 
-  async function initRequestsPage() {
+  async function initRequestsPage(adminUser) {
+    const canDeleteLeads = adminUser?.role === 'OWNER';
     const list = document.querySelector('[data-requests-list]');
 
     const loading = document.querySelector('[data-requests-loading]');
@@ -599,16 +600,10 @@
 
             <span
               class="admin-request-card__status"
-createdAt}
-              </time>
-            </div>
-
-            <span
-              class="admin-request-card__status"
               data-lead-status-badge
-            >
+              >
               ${statusLabel}
-            </span>
+              </span>
           </div>
 
           <div class="admin-request-card__body">
@@ -728,21 +723,36 @@ createdAt}
               </p>
 
               <div class="admin-request-card__actions">
-                <button
-                  class="admin-request-card__save"
-                  type="button"
-                  data-lead-save
-                >
-                  Сохранить
-                </button>
+  <button
+    class="admin-request-card__save"
+    type="button"
+    data-lead-save
+  >
+    Сохранить
+  </button>
 
-                <span
-                  class="admin-request-card__save-status"
-                  role="status"
-                  aria-live="polite"
-                  data-lead-save-status
-                ></span>
-              </div>
+  <span
+    class="admin-request-card__save-status"
+    role="status"
+    aria-live="polite"
+    data-lead-save-status
+  ></span>
+
+  ${
+    canDeleteLeads
+      ? `
+        <button
+          class="admin-request-card__delete"
+          type="button"
+          aria-label="Удалить заявку №${id}"
+          data-lead-delete
+        >
+          Удалить
+        </button>
+      `
+      : ''
+  }
+</div>
             </div>
           </div>
         </article>
@@ -789,9 +799,15 @@ createdAt}
       list.querySelectorAll('[data-lead-card]').forEach((card) => {
         const comment = card.querySelector('[data-lead-comment]');
 
+        const deleteButton = card.querySelector('[data-lead-delete]');
+
         const counter = card.querySelector('[data-lead-comment-counter]');
 
         const saveButton = card.querySelector('[data-lead-save]');
+
+        deleteButton?.addEventListener('click', async () => {
+          await deleteRequestCard(card);
+        });
 
         comment?.addEventListener('input', () => {
           if (counter) {
@@ -878,6 +894,72 @@ createdAt}
       } finally {
         saveButton.disabled = false;
         saveButton.textContent = 'Сохранить';
+      }
+    }
+
+    async function deleteRequestCard(card) {
+      const leadId = Number(card.dataset.leadCard);
+
+      const deleteButton = card.querySelector('[data-lead-delete]');
+
+      if (!Number.isInteger(leadId) || leadId <= 0 || !deleteButton) {
+        return;
+      }
+
+      const confirmed = window.confirm(
+        `Удалить заявку №${leadId}?\n\nЭто действие нельзя отменить.`,
+      );
+
+      if (!confirmed) {
+        return;
+      }
+
+      const cardsOnPage = list.querySelectorAll('[data-lead-card]').length;
+
+      deleteButton.disabled = true;
+      deleteButton.textContent = 'Удаляем…';
+
+      try {
+        const { response, data } = await requestJson(
+          `/admin/api/leads/${leadId}`,
+          {
+            method: 'DELETE',
+
+            headers: {
+              'X-CSRF-Token': csrfToken,
+            },
+          },
+        );
+
+        if (response.status === 401) {
+          redirectToLogin();
+          return;
+        }
+
+        if (response.status === 403) {
+          throw new Error('Удалять заявки может только OWNER');
+        }
+
+        if (!response.ok) {
+          throw new Error(data?.message || 'Не удалось удалить заявку');
+        }
+
+        if (cardsOnPage === 1 && state.page > 1) {
+          state.page -= 1;
+        }
+
+        showRequestsMessage(`Заявка №${leadId} удалена.`, true);
+
+        await loadRequests({
+          preserveMessage: true,
+        });
+      } catch (error) {
+        console.error('Ошибка удаления заявки:', error);
+
+        showRequestsMessage(error.message || 'Не удалось удалить заявку.');
+
+        deleteButton.disabled = false;
+        deleteButton.textContent = 'Удалить';
       }
     }
 
